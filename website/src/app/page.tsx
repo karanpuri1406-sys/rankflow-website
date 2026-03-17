@@ -206,7 +206,7 @@ function Hero() {
                 transition={{ delay:0.3 + i*0.14, duration:0.75, ease:[0.22,1,0.36,1] }}
                 style={{
                   fontFamily:SYNE, fontWeight:800,
-                  fontSize:'clamp(3rem, 7.5vw, 6.5rem)',
+                  fontSize:'clamp(2.2rem, 5vw, 4.5rem)',
                   lineHeight:1.05, color,
                   textShadow:'0 2px 24px rgba(0,0,0,0.7)',
                   display:'block',
@@ -378,7 +378,7 @@ function Services() {
             What We Do
           </span>
           <h2 style={{ fontFamily:SYNE, fontWeight:800,
-            fontSize:'clamp(2.2rem, 4.5vw, 3.8rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
+            fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
             Every service,{' '}
             <span style={{ color:CYAN }}>powered by AI.</span>
           </h2>
@@ -438,7 +438,7 @@ function Process() {
             How It Works
           </span>
           <h2 style={{ fontFamily:SYNE, fontWeight:800,
-            fontSize:'clamp(2.2rem, 4.5vw, 3.8rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
+            fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
             From audit to traction{' '}
             <span style={{ color:CYAN }}>in 30 days.</span>
           </h2>
@@ -452,7 +452,7 @@ function Process() {
               viewport={{ once:true }} transition={{ delay:i*0.12 }}
               style={{ background:BG_ALT, padding:'36px 28px', position:'relative' }}>
               {/* Ghost number */}
-              <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'5rem',
+              <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'3.5rem',
                 color:'rgba(255,255,255,0.03)', position:'absolute', top:'16px', right:'20px',
                 lineHeight:1, userSelect:'none', pointerEvents:'none' }}>{s.n}</span>
 
@@ -504,7 +504,7 @@ function WhyUs() {
           {stats.map((s, i) => (
             <div key={i} style={{ background:BG, padding:'40px 28px' }}>
               <div style={{ fontFamily:SYNE, fontWeight:800,
-                fontSize:'clamp(2.5rem, 4vw, 3.5rem)', color:CYAN, lineHeight:1 }}>{s.n}</div>
+                fontSize:'clamp(1.8rem, 3vw, 2.6rem)', color:CYAN, lineHeight:1 }}>{s.n}</div>
               <div style={{ fontFamily:SYNE, fontWeight:600, fontSize:'1rem',
                 color:WHITE, marginTop:'8px', marginBottom:'4px' }}>{s.l}</div>
               <div style={{ fontFamily:SANS, fontSize:'0.82rem', color:MUTED }}>{s.sub}</div>
@@ -521,7 +521,7 @@ function WhyUs() {
               Why RANKFLOW
             </span>
             <h2 style={{ fontFamily:SYNE, fontWeight:800,
-              fontSize:'clamp(2rem, 4vw, 3.2rem)', color:WHITE, lineHeight:1.12, marginBottom:'20px' }}>
+              fontSize:'clamp(1.6rem, 3vw, 2.4rem)', color:WHITE, lineHeight:1.12, marginBottom:'20px' }}>
               We move faster because we work smarter.
             </h2>
             <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1.02rem', color:BODY, lineHeight:1.78 }}>
@@ -605,7 +605,7 @@ function Pricing() {
             Pricing
           </span>
           <h2 style={{ fontFamily:SYNE, fontWeight:800,
-            fontSize:'clamp(2.2rem, 4.5vw, 3.8rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
+            fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
             Transparent pricing.{' '}
             <span style={{ color:CYAN }}>No surprises.</span>
           </h2>
@@ -733,7 +733,7 @@ function Results() {
             Client Results
           </span>
           <h2 style={{ fontFamily:SYNE, fontWeight:800,
-            fontSize:'clamp(2.2rem, 4.5vw, 3.8rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
+            fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
             Numbers that{' '}
             <span style={{ color:CYAN }}>don&apos;t lie.</span>
           </h2>
@@ -813,7 +813,7 @@ function Contact() {
               Free Audit
             </span>
             <h2 style={{ fontFamily:SYNE, fontWeight:800,
-              fontSize:'clamp(2.2rem, 4vw, 3.4rem)', color:WHITE, lineHeight:1.1, marginBottom:'20px' }}>
+              fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, marginBottom:'20px' }}>
               Get your free<br/>
               <span style={{ color:CYAN }}>SEO health check.</span>
             </h2>
