@@ -748,10 +748,10 @@ function Results() {
               style={{ background:BG_ALT, border:`1px solid ${BORDER}`,
                 borderRadius:'14px', padding:'36px 28px' }}>
               <div style={{ display:'block', background:`${c.accent}14`, border:`1px solid ${c.accent}33`,
-                borderRadius:'10px', padding:'14px 20px', marginBottom:'14px',
-                boxSizing:'border-box' as const }}>
+                borderRadius:'10px', padding:'12px 16px', marginBottom:'14px',
+                boxSizing:'border-box' as const, overflow:'hidden' as const }}>
                 <div style={{ fontFamily:SYNE, fontWeight:800,
-                  fontSize:'2.6rem', color:c.accent, lineHeight:1, whiteSpace:'nowrap' as const }}>
+                  fontSize:'2rem', color:c.accent, lineHeight:1 }}>
                   {c.lift}
                 </div>
               </div>
