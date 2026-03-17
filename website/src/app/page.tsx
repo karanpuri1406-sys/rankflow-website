@@ -339,11 +339,11 @@ function Ticker() {
       <div className="ticker-track" style={{ display:'flex', gap:'0', whiteSpace:'nowrap', width:'max-content' }}>
         {all.map((item, i) => (
           <span key={i} style={{ display:'inline-flex', alignItems:'center' }}>
-            <span style={{ fontFamily:MONO, fontSize:'0.65rem', letterSpacing:'0.2em',
-              textTransform:'uppercase', color:'#334155', padding:'0 28px' }}>
+            <span style={{ fontFamily:MONO, fontSize:'0.75rem', letterSpacing:'0.2em',
+              textTransform:'uppercase', color:BODY, padding:'0 32px' }}>
               {item}
             </span>
-            <span style={{ color:CYAN, fontSize:'0.45rem', opacity:0.5 }}>◆</span>
+            <span style={{ color:CYAN, fontSize:'0.5rem', opacity:0.7 }}>◆</span>
           </span>
         ))}
       </div>
@@ -747,20 +747,23 @@ function Results() {
               className="card-hover"
               style={{ background:BG_ALT, border:`1px solid ${BORDER}`,
                 borderRadius:'14px', padding:'36px 28px' }}>
-              <div style={{ fontFamily:SYNE, fontWeight:800,
-                fontSize:'clamp(2.8rem, 4vw, 3.6rem)', color:c.accent, lineHeight:1, marginBottom:'6px' }}>
-                {c.lift}
+              <div style={{ display:'inline-block', background:`${c.accent}14`, border:`1px solid ${c.accent}33`,
+                borderRadius:'10px', padding:'12px 18px', marginBottom:'14px' }}>
+                <div style={{ fontFamily:SYNE, fontWeight:800,
+                  fontSize:'clamp(2.8rem, 4vw, 3.6rem)', color:c.accent, lineHeight:1 }}>
+                  {c.lift}
+                </div>
               </div>
-              <div style={{ fontFamily:SYNE, fontWeight:600, fontSize:'0.95rem', color:WHITE, marginBottom:'4px' }}>
+              <div style={{ fontFamily:SYNE, fontWeight:600, fontSize:'1rem', color:WHITE, marginBottom:'6px' }}>
                 {c.metric}
               </div>
               <div style={{ height:'1px', background:BORDER, margin:'14px 0' }}/>
-              <div style={{ fontFamily:SANS, fontWeight:500, fontSize:'0.88rem', color:BODY, marginBottom:'4px' }}>
+              <div style={{ fontFamily:SANS, fontWeight:500, fontSize:'0.9rem', color:BODY, marginBottom:'6px' }}>
                 {c.client}
               </div>
               <div style={{ display:'flex', alignItems:'center', gap:'6px' }}>
                 <div style={{ width:'6px', height:'6px', borderRadius:'50%', background:c.accent }}/>
-                <span style={{ fontFamily:MONO, fontSize:'0.65rem', color:MUTED, letterSpacing:'0.08em' }}>
+                <span style={{ fontFamily:MONO, fontSize:'0.7rem', color:MUTED, letterSpacing:'0.08em' }}>
                   {c.period}
                 </span>
               </div>
