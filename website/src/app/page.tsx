@@ -747,10 +747,11 @@ function Results() {
               className="card-hover"
               style={{ background:BG_ALT, border:`1px solid ${BORDER}`,
                 borderRadius:'14px', padding:'36px 28px' }}>
-              <div style={{ display:'inline-block', background:`${c.accent}14`, border:`1px solid ${c.accent}33`,
-                borderRadius:'10px', padding:'12px 18px', marginBottom:'14px' }}>
+              <div style={{ display:'block', background:`${c.accent}14`, border:`1px solid ${c.accent}33`,
+                borderRadius:'10px', padding:'14px 20px', marginBottom:'14px',
+                boxSizing:'border-box' as const }}>
                 <div style={{ fontFamily:SYNE, fontWeight:800,
-                  fontSize:'clamp(2.8rem, 4vw, 3.6rem)', color:c.accent, lineHeight:1 }}>
+                  fontSize:'2.6rem', color:c.accent, lineHeight:1, whiteSpace:'nowrap' as const }}>
                   {c.lift}
                 </div>
               </div>
