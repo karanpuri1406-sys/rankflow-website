@@ -96,22 +96,50 @@
 
 ## Traceability
 
-*Populated during roadmap creation.*
+**Roadmap Structure:** 8 phases (fine granularity)
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BRAND-01 to BRAND-04 | Phase 1 | Pending |
-| WEB-01 to WEB-10 | Phase 2-3 | Pending |
-| SVC-01 to SVC-05 | Phase 1 | Pending |
-| OPS-01 to OPS-05 | Phase 2 | Pending |
-| LEAD-01 to LEAD-04 | Phase 3-4 | Pending |
-| AI-01 to AI-03 | Phase 1-2 | Pending |
+| BRAND-01 | Phase 1: Brand & Positioning | Pending |
+| BRAND-02 | Phase 1: Brand & Positioning | Pending |
+| BRAND-03 | Phase 1: Brand & Positioning | Pending |
+| BRAND-04 | Phase 1: Brand & Positioning | Pending |
+| WEB-01 | Phase 3: Website Infrastructure | Pending |
+| WEB-02 | Phase 3: Website Infrastructure | Pending |
+| WEB-03 | Phase 5: Content & SEO Setup | Pending |
+| WEB-04 | Phase 5: Content & SEO Setup | Pending |
+| WEB-05 | Phase 5: Content & SEO Setup | Pending |
+| WEB-06 | Phase 4: Lead Capture & Contact | Pending |
+| WEB-07 | Phase 6: Case Studies & Social Proof | Pending |
+| WEB-08 | Phase 3: Website Infrastructure | Pending |
+| WEB-09 | Phase 3: Website Infrastructure | Pending |
+| WEB-10 | Phase 4: Lead Capture & Contact | Pending |
+| SVC-01 | Phase 1: Brand & Positioning | Pending |
+| SVC-02 | Phase 1: Brand & Positioning | Pending |
+| SVC-03 | Phase 1: Brand & Positioning | Pending |
+| SVC-04 | Phase 1: Brand & Positioning | Pending |
+| SVC-05 | Phase 1: Brand & Positioning | Pending |
+| OPS-01 | Phase 2: Legal & Operations Framework | Pending |
+| OPS-02 | Phase 2: Legal & Operations Framework | Pending |
+| OPS-03 | Phase 2: Legal & Operations Framework | Pending |
+| OPS-04 | Phase 2: Legal & Operations Framework | Pending |
+| OPS-05 | Phase 2: Legal & Operations Framework | Pending |
+| LEAD-01 | Phase 8: Lead Generation Activation | Pending |
+| LEAD-02 | Phase 8: Lead Generation Activation | Pending |
+| LEAD-03 | Phase 8: Lead Generation Activation | Pending |
+| LEAD-04 | Phase 8: Lead Generation Activation | Pending |
+| AI-01 | Phase 7: AI & Content Workflow | Pending |
+| AI-02 | Phase 7: AI & Content Workflow | Pending |
+| AI-03 | Phase 7: AI & Content Workflow | Pending |
 
 **Coverage:**
 - v1 requirements: 31 total
 - Mapped to phases: 31
 - Unmapped: 0 ✓
+- **Coverage: 100%**
 
 ---
+
 *Requirements defined: 2026-03-17*
-*Last updated: 2026-03-17 after initial definition*
+*Roadmap created: 2026-03-17*
+*Ready for Phase 1 planning*
