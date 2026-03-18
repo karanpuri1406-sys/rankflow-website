@@ -12,8 +12,9 @@
     "@sanity/vision": "^3",
     "react": "^18",
     "react-dom": "^18",
+    "react-is": "^18",
     "sanity": "^3",
-    "styled-components": "^6"
+    "styled-components": "^6.1.15"
   },
   "devDependencies": {
     "@types/react": "^18",
