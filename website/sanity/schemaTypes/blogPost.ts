@@ -18,7 +18,6 @@ export const blogPost = defineType({
         defineField({ name: 'alt', title: 'Alt Text', type: 'string' }),
         defineField({ name: 'caption', title: 'Caption', type: 'string' }),
       ]},
-      { type: 'code' },
     ]}),
     defineField({ name: 'author', title: 'Author', type: 'string', initialValue: 'RANKFLOW Team' }),
     defineField({ name: 'categories', title: 'Categories', type: 'array', of: [{ type: 'string' }],
