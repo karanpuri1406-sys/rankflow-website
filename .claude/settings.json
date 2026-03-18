@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node \"$HOME/.claude/get-shit-done/bin/gsd-tools.cjs\" commit \"docs: initialize project\" --files .planning/PROJECT.md)",
+      "Read(//c/Users/KARAN/.claude/get-shit-done/templates/research-project/**)",
+      "Skill(gsd:plan-phase)",
+      "Skill(gsd:plan-phase:*)",
+      "Skill(gsd:discuss-phase)",
+      "Skill(gsd:discuss-phase:*)",
+      "Read(//c/Users/KARAN/Downloads/**)",
+      "WebFetch(domain:dribbble.com)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\KARAN\\SEO Agency"
+    ]
+  }
+}
