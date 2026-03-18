@@ -14,5 +14,9 @@
     "react-dom": "^18",
     "sanity": "^3",
     "styled-components": "^6"
+  },
+  "devDependencies": {
+    "@types/react": "^18",
+    "typescript": "^5"
   }
 }
