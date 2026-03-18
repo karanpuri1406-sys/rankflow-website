@@ -6,7 +6,7 @@ import { schemaTypes } from './schemaTypes'
 export default defineConfig({
   name: 'rankflow-cms',
   title: 'RANKFLOW CMS',
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || '',
+  projectId: 'nh4udqvm',
   dataset: 'production',
   plugins: [
     structureTool({
