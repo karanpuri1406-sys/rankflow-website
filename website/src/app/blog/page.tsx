@@ -1,6 +1,8 @@
 import { sanityFetch } from '../../../sanity/lib/client'
 import { allBlogPostsQuery } from '../../../sanity/lib/queries'
+import type { BlogPostSummary } from '@/types/sanity'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata = {
   title: 'SEO Blog | RANKFLOW',
@@ -8,7 +10,7 @@ export const metadata = {
 }
 
 export default async function BlogPage() {
-  const posts = await sanityFetch(allBlogPostsQuery)
+  const posts: BlogPostSummary[] = await sanityFetch(allBlogPostsQuery)
 
   return (
     <main style={{ background: '#05070E', minHeight: '100vh', padding: '120px 24px 80px' }}>
@@ -31,14 +33,14 @@ export default async function BlogPage() {
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
-            {posts.map((post: any) => (
+            {posts.map((post) => (
               <Link key={post._id} href={`/blog/${post.slug.current}`} style={{ textDecoration: 'none' }}>
                 <article style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', overflow: 'hidden', transition: 'border-color 0.2s, transform 0.2s', cursor: 'pointer' }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(34,211,238,0.3)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)'; (e.currentTarget as HTMLElement).style.transform = ''; }}
                 >
                   {post.coverImage?.asset?.url && (
-                    <img src={post.coverImage.asset.url} alt={post.coverImage.alt || post.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                    <Image src={post.coverImage.asset.url} alt={post.coverImage.alt || post.title} width={640} height={200} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
                   )}
                   <div style={{ padding: '24px' }}>
                     {post.categories?.[0] && (

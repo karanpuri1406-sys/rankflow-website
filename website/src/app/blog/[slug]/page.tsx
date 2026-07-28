@@ -1,12 +1,14 @@
 import { sanityFetch, sanityFetchOne } from '../../../../sanity/lib/client'
 import { blogPostBySlugQuery, allBlogPostsQuery } from '../../../../sanity/lib/queries'
 import { PortableText } from 'next-sanity'
+import type { BlogPostSummary } from '@/types/sanity'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export async function generateStaticParams() {
   const posts = await sanityFetch(allBlogPostsQuery)
-  return posts.map((p: any) => ({ slug: p.slug.current }))
+  return posts.map((p: BlogPostSummary) => ({ slug: p.slug.current }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -48,7 +50,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {post.coverImage?.asset?.url && (
-          <img src={post.coverImage.asset.url} alt={post.coverImage.alt || post.title}
+          <Image src={post.coverImage.asset.url} alt={post.coverImage.alt || post.title}
+            width={760} height={460} priority
             style={{ width: '100%', borderRadius: '12px', marginBottom: '48px', objectFit: 'cover', maxHeight: '460px' }} />
         )}
 

@@ -3,10 +3,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowRight, ChevronDown, Menu, X, Search, Brain,
-  Globe2, BarChart3, Target, Layers, CheckCircle2,
-  TrendingUp, Star, Shield, Clock,
+  ArrowRight, ChevronDown, Menu, X, Search, FileText,
+  MapPin, BarChart3, Megaphone, Wrench, CheckCircle2,
+  Shield, Clock, Eye, MessageCircle, Phone, AlertCircle,
 } from 'lucide-react';
+import { CONTACT, waLink, formEndpoint } from '@/config';
 
 /* ──────────────────────────────────────────────
    DESIGN TOKENS
@@ -27,9 +28,8 @@ const MONO    = "'DM Mono', monospace";
    ────────────────────────────────────────────── */
 function Logo() {
   return (
-    <a href="#" style={{ display:'flex', alignItems:'center', gap:'10px', textDecoration:'none' }}>
-      {/* Trending-up chart in rounded square */}
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+    <a href="#top" style={{ display:'flex', alignItems:'center', gap:'10px', textDecoration:'none' }}>
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
         <rect width="36" height="36" rx="9" fill={CYAN}/>
         <polyline
           points="7,26 13,17 19,21 25,13 29,8"
@@ -40,6 +40,31 @@ function Logo() {
       <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'1.18rem', letterSpacing:'0.06em', color:WHITE }}>
         RANKFLOW
       </span>
+    </a>
+  );
+}
+
+/* ──────────────────────────────────────────────
+   FLOATING WHATSAPP  —  the channel this market actually uses
+   ────────────────────────────────────────────── */
+function WhatsAppFloat() {
+  return (
+    <a
+      href={waLink()}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with Rankflow on WhatsApp"
+      style={{
+        position:'fixed', right:'20px', bottom:'20px', zIndex:60,
+        display:'flex', alignItems:'center', gap:'10px',
+        background:'#25D366', color:'#062314',
+        padding:'13px 18px', borderRadius:'999px',
+        fontFamily:SANS, fontWeight:700, fontSize:'0.9rem',
+        textDecoration:'none', boxShadow:'0 8px 30px rgba(37,211,102,0.4)',
+      }}
+    >
+      <MessageCircle size={19} strokeWidth={2.2}/>
+      <span className="hidden sm:inline">WhatsApp us</span>
     </a>
   );
 }
@@ -57,7 +82,13 @@ function Nav() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  const links = ['Services','Process','Pricing','Results','Contact'];
+  const links = [
+    { label:'Services', href:'#services' },
+    { label:'Pricing',  href:'#pricing'  },
+    { label:'Work',     href:'#work'     },
+    { label:'Process',  href:'#process'  },
+    { label:'Contact',  href:'#contact'  },
+  ];
 
   return (
     <motion.nav
@@ -77,36 +108,46 @@ function Nav() {
         display:'flex', alignItems:'center', justifyContent:'space-between' }}>
         <Logo />
 
-        {/* Desktop links */}
         <div className="hidden md:flex" style={{ alignItems:'center', gap:'2px' }}>
           {links.map(l => (
-            <a key={l} href={`#${l.toLowerCase()}`}
+            <a key={l.label} href={l.href}
               style={{ fontFamily:SANS, fontSize:'0.9rem', color:'#94A3B8',
                 padding:'8px 16px', textDecoration:'none', transition:'color 0.2s' }}
               onMouseEnter={e => (e.currentTarget.style.color = WHITE)}
               onMouseLeave={e => (e.currentTarget.style.color = '#94A3B8')}
-            >{l}</a>
+            >{l.label}</a>
           ))}
         </div>
 
-        {/* CTA */}
-        <a href="#contact" className="hidden md:flex"
-          style={{ alignItems:'center', gap:'8px', fontFamily:SANS, fontWeight:600,
-            fontSize:'0.88rem', background:CYAN, color:BG,
-            padding:'10px 22px', borderRadius:'8px', textDecoration:'none', transition:'all 0.25s' }}
-          onMouseEnter={e => {
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-            (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 28px rgba(34,211,238,0.4)';
-          }}
-          onMouseLeave={e => {
-            (e.currentTarget as HTMLElement).style.transform = '';
-            (e.currentTarget as HTMLElement).style.boxShadow = '';
-          }}
-        >
-          Free Audit <ArrowRight size={15}/>
-        </a>
+        <div className="hidden md:flex" style={{ alignItems:'center', gap:'10px' }}>
+          {CONTACT.phoneE164 && (
+            <a href={`tel:${CONTACT.phoneE164}`}
+              style={{ display:'inline-flex', alignItems:'center', gap:'7px',
+                fontFamily:SANS, fontWeight:600, fontSize:'0.85rem', color:WHITE,
+                padding:'10px 14px', borderRadius:'8px', textDecoration:'none',
+                border:`1px solid ${BORDER}` }}>
+              <Phone size={14}/> {CONTACT.phoneDisplay}
+            </a>
+          )}
+          <a href="#contact"
+            style={{ display:'inline-flex', alignItems:'center', gap:'8px',
+              fontFamily:SANS, fontWeight:600, fontSize:'0.88rem',
+              background:CYAN, color:BG,
+              padding:'10px 22px', borderRadius:'8px', textDecoration:'none', transition:'all 0.25s' }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 28px rgba(34,211,238,0.4)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.transform = '';
+              (e.currentTarget as HTMLElement).style.boxShadow = '';
+            }}
+          >
+            Free Check <ArrowRight size={15}/>
+          </a>
+        </div>
 
-        <button className="md:hidden"
+        <button className="md:hidden" aria-label="Toggle menu"
           style={{ background:'none', border:'none', color:'#94A3B8', cursor:'pointer', padding:'4px' }}
           onClick={() => setOpen(!open)}>
           {open ? <X size={22}/> : <Menu size={22}/>}
@@ -121,16 +162,23 @@ function Nav() {
           >
             <div style={{ padding:'12px 24px 24px', display:'flex', flexDirection:'column', gap:'4px' }}>
               {links.map(l => (
-                <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setOpen(false)}
+                <a key={l.label} href={l.href} onClick={() => setOpen(false)}
                   style={{ fontFamily:SANS, color:'#94A3B8', padding:'13px 0',
                     borderBottom:`1px solid ${BORDER}`, textDecoration:'none', fontSize:'0.95rem' }}>
-                  {l}
+                  {l.label}
                 </a>
               ))}
-              <a href="#contact"
-                style={{ marginTop:'16px', background:CYAN, color:BG, padding:'13px',
+              {CONTACT.phoneE164 && (
+                <a href={`tel:${CONTACT.phoneE164}`}
+                  style={{ marginTop:'14px', border:`1px solid ${BORDER}`, color:WHITE, padding:'13px',
+                    textAlign:'center', borderRadius:'8px', fontFamily:SANS, fontWeight:600, textDecoration:'none' }}>
+                  Call {CONTACT.phoneDisplay}
+                </a>
+              )}
+              <a href="#contact" onClick={() => setOpen(false)}
+                style={{ marginTop:'8px', background:CYAN, color:BG, padding:'13px',
                   textAlign:'center', borderRadius:'8px', fontFamily:SANS, fontWeight:700, textDecoration:'none' }}>
-                Get Free Audit
+                Get a Free Check
               </a>
             </div>
           </motion.div>
@@ -141,46 +189,53 @@ function Nav() {
 }
 
 /* ──────────────────────────────────────────────
-   HERO  —  full-screen video background
+   HERO
    ────────────────────────────────────────────── */
 function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => { videoRef.current?.play().catch(() => {}); }, []);
+
+  /* Only load the video on larger screens and when the visitor hasn't asked
+     for reduced motion. On mobile the poster alone carries the section —
+     which keeps the heaviest asset off the metered connections most of our
+     visitors are on. */
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const wide = window.matchMedia('(min-width: 768px)').matches;
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (wide && !still) {
+      el.src = '/hero.mp4';
+      el.play().catch(() => {});
+    }
+  }, []);
 
   return (
-    <section style={{ position:'relative', minHeight:'100vh',
+    <section id="top" style={{ position:'relative', minHeight:'100vh',
       display:'flex', flexDirection:'column', overflow:'hidden', background:BG }}>
 
-      {/* ── Video background ── */}
       <div style={{ position:'absolute', inset:0, zIndex:0 }}>
         <video
           ref={videoRef}
-          autoPlay loop muted playsInline
-          poster="/hero-mobile.png"
+          loop muted playsInline preload="none"
+          poster="/hero-mobile.jpg"
+          aria-hidden="true"
           style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }}
-        >
-          <source src="/hero.mp4" type="video/mp4"/>
-        </video>
-
-        {/* Dark gradient overlay — heavier top/bottom, lighter mid to show video */}
+        />
         <div style={{
           position:'absolute', inset:0,
           background:'linear-gradient(to bottom, rgba(5,7,14,0.80) 0%, rgba(5,7,14,0.48) 35%, rgba(5,7,14,0.42) 60%, rgba(5,7,14,0.95) 100%)',
         }}/>
-        {/* Edge vignette */}
         <div style={{
           position:'absolute', inset:0,
           background:'radial-gradient(ellipse 75% 75% at 50% 50%, transparent 45%, rgba(5,7,14,0.6) 100%)',
         }}/>
       </div>
 
-      {/* ── Hero content ── */}
       <div style={{
         position:'relative', zIndex:10, flex:1,
         display:'flex', flexDirection:'column', justifyContent:'center',
         maxWidth:'1200px', margin:'0 auto', padding:'130px 24px 0', width:'100%',
       }}>
-        {/* Label badge */}
         <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.2 }}
           style={{ display:'inline-flex', alignItems:'center', gap:'10px', marginBottom:'30px' }}>
           <span className="animate-pulse" style={{
@@ -188,16 +243,15 @@ function Hero() {
           }}/>
           <span style={{ fontFamily:MONO, fontSize:'0.7rem', letterSpacing:'0.22em',
             textTransform:'uppercase', color:CYAN }}>
-            AI-Powered SEO Agency · Chandigarh, India
+            SEO &amp; Digital Marketing · Chandigarh Tricity
           </span>
         </motion.div>
 
-        {/* Headline — 3 staggered lines */}
         <div style={{ marginBottom:'26px' }}>
           {[
-            { text:'The SEO Agency',  color:WHITE },
-            { text:'Built for',       color:WHITE },
-            { text:'SaaS Growth.',    color:CYAN  },
+            { text:'Marketing for',      color:WHITE },
+            { text:'Chandigarh firms',   color:WHITE },
+            { text:'that need clients.', color:CYAN  },
           ].map(({ text, color }, i) => (
             <div key={text} style={{ overflow:'hidden' }}>
               <motion.span
@@ -216,24 +270,24 @@ function Hero() {
           ))}
         </div>
 
-        {/* Sub-description */}
         <motion.p
           initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.76 }}
           style={{
             fontFamily:SANS, fontWeight:300,
             fontSize:'clamp(1rem, 1.8vw, 1.18rem)',
             color:'#E2E8F0', lineHeight:1.78,
-            maxWidth:'540px', marginBottom:'40px',
+            maxWidth:'560px', marginBottom:'40px',
             textShadow:'0 1px 14px rgba(0,0,0,0.6)',
           }}
         >
-          We help SaaS and tech startups dominate search rankings using AI-powered workflows —
-          delivering{' '}
-          <span style={{ color:WHITE, fontWeight:500 }}>3× faster results</span>{' '}
-          than traditional agencies, with complete visibility into every move we make.
+          SEO, Google Business Profile and content for consultancies, law firms,
+          clinics and practices across Chandigarh, Mohali and Panchkula.{' '}
+          <span style={{ color:WHITE, fontWeight:500 }}>
+            Every price is published on this page
+          </span>{' '}
+          — you&apos;ll know what it costs before you speak to anyone.
         </motion.p>
 
-        {/* CTA buttons */}
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.9 }}
           style={{ display:'flex', flexWrap:'wrap', gap:'14px', marginBottom:'56px' }}>
           <a href="#contact"
@@ -252,9 +306,9 @@ function Hero() {
               (e.currentTarget as HTMLElement).style.boxShadow = '';
             }}
           >
-            Get Your Free SEO Audit <ArrowRight size={16}/>
+            See What Google Shows for Your Business <ArrowRight size={16}/>
           </a>
-          <a href="#services"
+          <a href="#pricing"
             style={{ display:'inline-flex', alignItems:'center', gap:'8px',
               padding:'15px 32px', borderRadius:'9px',
               border:'1px solid rgba(255,255,255,0.24)', color:WHITE,
@@ -264,50 +318,32 @@ function Hero() {
             }}
             onMouseEnter={e => {
               (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.13)';
-              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.4)';
             }}
             onMouseLeave={e => {
               (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.07)';
-              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.24)';
             }}
           >
-            Explore Services <ChevronDown size={16}/>
+            See Pricing <ChevronDown size={16}/>
           </a>
         </motion.div>
 
-        {/* Social proof + stats */}
+        {/* Honest credentials — every claim here is verifiable */}
         <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ delay:1.05 }}
-          style={{ display:'flex', flexWrap:'wrap', alignItems:'center', gap:'28px',
-            borderTop:'1px solid rgba(255,255,255,0.12)', paddingTop:'32px', maxWidth:'700px' }}>
-          {/* Stars */}
-          <div style={{ display:'flex', alignItems:'center', gap:'10px' }}>
-            <div style={{ display:'flex', gap:'3px' }}>
-              {[1,2,3,4,5].map(i => (
-                <Star key={i} size={13} style={{ fill:'#F59E0B', color:'#F59E0B' }}/>
-              ))}
-            </div>
-            <span style={{ fontFamily:SANS, fontSize:'0.82rem', color:'#94A3B8' }}>
-              4.9/5 · 30+ clients
-            </span>
-          </div>
-
-          <div style={{ width:'1px', height:'28px', background:'rgba(255,255,255,0.1)' }}/>
-
-          {/* Stats */}
+          style={{ display:'flex', flexWrap:'wrap', alignItems:'flex-start', gap:'32px',
+            borderTop:'1px solid rgba(255,255,255,0.12)', paddingTop:'32px', maxWidth:'760px' }}>
           {[
-            { n:'3×',   l:'Faster results' },
-            { n:'40%',  l:'Avg traffic lift' },
-            { n:'150+', l:'Pages optimized' },
+            { n:'9 yrs',  l:'In marketing' },
+            { n:'3.5 yrs', l:'In-house B2B marketing lead' },
+            { n:'2',      l:'Consulting firms as active clients' },
           ].map((s, i) => (
             <div key={i}>
               <div style={{ fontFamily:SYNE, fontWeight:800, fontSize:'1.5rem', color:WHITE, lineHeight:1 }}>{s.n}</div>
-              <div style={{ fontFamily:SANS, fontSize:'0.75rem', color:'#64748B', marginTop:'3px' }}>{s.l}</div>
+              <div style={{ fontFamily:SANS, fontSize:'0.78rem', color:'#94A3B8', marginTop:'4px' }}>{s.l}</div>
             </div>
           ))}
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:1.4 }}
         style={{ position:'relative', zIndex:10, display:'flex', justifyContent:'center',
           paddingBottom:'40px', paddingTop:'24px' }}>
@@ -327,9 +363,9 @@ function Hero() {
    ────────────────────────────────────────────── */
 function Ticker() {
   const items = [
-    'Technical SEO','AI Content Engine','GEO Optimization',
-    'Link Building','Local SEO','Programmatic SEO',
-    'Core Web Vitals','Real-Time Reports','SaaS Specialists','30-Day Results',
+    'Local SEO','Google Business Profile','Content & Blogs',
+    'Website Fixes','Google Ads','Meta Ads',
+    'Analytics Setup','LinkedIn Content','Review Management','Transparent Pricing',
   ];
   const all = [...items, ...items];
 
@@ -356,21 +392,19 @@ function Ticker() {
    ────────────────────────────────────────────── */
 function Services() {
   const svcs = [
-    { Icon:Search,   title:'Technical SEO',      desc:'AI-powered site crawls, Core Web Vitals fixes, schema markup, and prioritised action reports — not just a list of problems.' },
-    { Icon:Brain,    title:'AI Content Engine',  desc:'Claude-assisted articles that rank. Every piece is human-reviewed for E-E-A-T accuracy and originality before it goes live.' },
-    { Icon:Globe2,   title:'GEO Optimization',   desc:'Optimise for Google AI Overviews, ChatGPT Search, and Perplexity citations. The future of search — we\'re already in it.' },
-    { Icon:BarChart3,title:'Link Building',       desc:'5–10 quality backlinks per month through outreach, digital PR, and niche edits. Authority that compounds month over month.' },
-    { Icon:Target,   title:'Local SEO',           desc:'Dominate Chandigarh Tricity and beyond. GBP optimisation, local citations, map pack strategy, and review management.' },
-    { Icon:Layers,   title:'Programmatic SEO',   desc:'Scale content 100× with data-driven templates. Perfect for SaaS comparison pages, directories, and location landings.' },
+    { Icon:MapPin,    title:'Google Business Profile', desc:'Claim it, fill it out properly, add photos and services, build local citations, and set up a system that keeps reviews coming in. This is where local results show up fastest.' },
+    { Icon:Search,    title:'Local SEO',               desc:'Rank for what people in Chandigarh, Mohali and Panchkula actually search. Keyword research, on-page work, and the map pack — not vanity rankings for terms nobody types.' },
+    { Icon:FileText,  title:'Content & Blogs',         desc:'Articles and guides that answer the questions your clients ask before they hire anyone. Written to be read by people first, and to rank as a consequence.' },
+    { Icon:Wrench,    title:'Website Fixes',           desc:'Broken contact forms, wrong sitemaps, slow pages, dead links. The unglamorous problems that quietly cost you enquiries every single week.' },
+    { Icon:Megaphone, title:'Google & Meta Ads',       desc:'Campaigns built to bring enquiries, not impressions. Ad spend stays in your own account and is billed separately — you always see exactly where it went.' },
+    { Icon:BarChart3, title:'Analytics That Make Sense',desc:'GA4 and Search Console set up to track the actions that matter — calls, form fills, directions. Then a monthly report in plain English.' },
   ];
 
   return (
     <section id="services" style={{ background:BG, padding:'100px 0', position:'relative' }}>
-      {/* Subtle dot grid decoration */}
       <div className="dot-grid" style={{ position:'absolute', inset:0, opacity:0.4, pointerEvents:'none' }}/>
 
       <div style={{ maxWidth:'1200px', margin:'0 auto', padding:'0 24px', position:'relative' }}>
-        {/* Heading */}
         <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           style={{ marginBottom:'64px' }}>
           <span style={{ fontFamily:MONO, fontSize:'0.68rem', letterSpacing:'0.22em',
@@ -379,16 +413,15 @@ function Services() {
           </span>
           <h2 style={{ fontFamily:SYNE, fontWeight:800,
             fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
-            Every service,{' '}
-            <span style={{ color:CYAN }}>powered by AI.</span>
+            Six things,{' '}
+            <span style={{ color:CYAN }}>done properly.</span>
           </h2>
           <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1.05rem', color:BODY,
-            marginTop:'16px', maxWidth:'480px', lineHeight:1.75 }}>
-            Not &ldquo;AI-flavoured&rdquo; marketing. Claude is integrated at every delivery step.
+            marginTop:'16px', maxWidth:'520px', lineHeight:1.75 }}>
+            No packages padded with services you&apos;ll never use. Start with one, add more when it earns its place.
           </p>
         </motion.div>
 
-        {/* 3 × 2 grid */}
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(340px, 1fr))', gap:'16px' }}>
           {svcs.map((s, i) => (
             <motion.div key={i}
@@ -418,14 +451,276 @@ function Services() {
 }
 
 /* ──────────────────────────────────────────────
+   PRICING
+   ────────────────────────────────────────────── */
+function Pricing() {
+  const plans = [
+    {
+      name:'Google Profile Rescue', price:'₹5,000', period:'one-time',
+      desc:'The fastest way to be found locally. Start here if you\'re not sure.',
+      features:[
+        'Claim and verify your Google listing',
+        'Categories, services and hours set up properly',
+        'Up to 20 photos added and optimised',
+        '10 local directory citations',
+        'A review-request system you can keep using',
+        'Before-and-after report after 30 days',
+      ],
+      highlight:false, badge:null,
+    },
+    {
+      name:'Local Starter', price:'₹12,000', period:'/month',
+      desc:'For practices that want to show up consistently, month after month.',
+      badge:'Most Popular',
+      features:[
+        'Everything in Profile Rescue, maintained monthly',
+        'Local SEO for your core service pages',
+        '2 articles a month, written for your clients',
+        'Google Posts and review management',
+        'GA4 and Search Console set up and tracked',
+        'Monthly report in plain English',
+      ],
+      highlight:true,
+    },
+    {
+      name:'Growth', price:'₹22,000', period:'/month',
+      desc:'For firms competing on search across the whole Tricity.',
+      features:[
+        'Everything in Local Starter',
+        'Full technical SEO and site fixes',
+        '4 articles a month plus landing pages',
+        'Competitor tracking and gap analysis',
+        'LinkedIn content for partners and directors',
+        'Fortnightly calls',
+      ],
+      highlight:false, badge:null,
+    },
+  ];
+
+  return (
+    <section id="pricing" style={{ background:BG_ALT, padding:'100px 0' }}>
+      <div style={{ maxWidth:'1200px', margin:'0 auto', padding:'0 24px' }}>
+        <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
+          style={{ textAlign:'center', marginBottom:'64px' }}>
+          <span style={{ fontFamily:MONO, fontSize:'0.68rem', letterSpacing:'0.22em',
+            textTransform:'uppercase', color:CYAN, display:'block', marginBottom:'14px' }}>
+            Pricing
+          </span>
+          <h2 style={{ fontFamily:SYNE, fontWeight:800,
+            fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
+            Most agencies won&apos;t tell you.{' '}
+            <span style={{ color:CYAN }}>Here&apos;s ours.</span>
+          </h2>
+          <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1.02rem', color:BODY,
+            maxWidth:'540px', margin:'14px auto 0', lineHeight:1.7 }}>
+            No lock-in contracts. Month to month, cancel whenever. Your Google profile,
+            website and ad accounts stay in your name — always.
+          </p>
+        </motion.div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(300px, 1fr))', gap:'20px' }}>
+          {plans.map((p, i) => (
+            <motion.div key={i}
+              initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
+              viewport={{ once:true }} transition={{ delay:i*0.1 }}
+              style={{
+                background: BG,
+                border: p.highlight ? `1px solid ${CYAN}40` : `1px solid ${BORDER}`,
+                borderRadius:'16px', padding:'36px 30px',
+                display:'flex', flexDirection:'column', position:'relative',
+                boxShadow: p.highlight ? `0 0 60px rgba(34,211,238,0.08)` : 'none',
+              }}
+            >
+              {p.badge && (
+                <div style={{ position:'absolute', top:'-13px', left:'50%', transform:'translateX(-50%)' }}>
+                  <span style={{ background:CYAN, color:BG, fontFamily:SYNE, fontWeight:700,
+                    fontSize:'0.7rem', padding:'4px 16px', borderRadius:'20px', letterSpacing:'0.04em',
+                    whiteSpace:'nowrap' }}>
+                    {p.badge}
+                  </span>
+                </div>
+              )}
+
+              <div style={{ marginBottom:'24px' }}>
+                <p style={{ fontFamily:MONO, fontSize:'0.65rem', letterSpacing:'0.2em',
+                  textTransform:'uppercase', color: p.highlight ? CYAN : MUTED, marginBottom:'10px' }}>
+                  {p.name}
+                </p>
+                <div style={{ display:'flex', alignItems:'baseline', gap:'6px' }}>
+                  <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'2.1rem',
+                    color: p.highlight ? CYAN : WHITE, lineHeight:1 }}>
+                    {p.price}
+                  </span>
+                  <span style={{ fontFamily:SANS, fontSize:'0.82rem', color:MUTED }}>{p.period}</span>
+                </div>
+                <p style={{ fontFamily:SANS, fontSize:'0.85rem', color:BODY, marginTop:'8px', lineHeight:1.6 }}>{p.desc}</p>
+              </div>
+
+              <div style={{ height:'1px', background:BORDER, marginBottom:'24px' }}/>
+
+              <ul style={{ listStyle:'none', padding:0, margin:'0 0 32px', display:'flex',
+                flexDirection:'column', gap:'12px', flex:1 }}>
+                {p.features.map((f, j) => (
+                  <li key={j} style={{ display:'flex', alignItems:'flex-start', gap:'10px' }}>
+                    <CheckCircle2 size={15} color={ p.highlight ? CYAN : '#4ADE80' }
+                      strokeWidth={2} style={{ marginTop:'2px', flexShrink:0 }}/>
+                    <span style={{ fontFamily:SANS, fontSize:'0.88rem', color:BODY, lineHeight:1.55 }}>{f}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a href="#contact"
+                style={{
+                  display:'flex', alignItems:'center', justifyContent:'center', gap:'8px',
+                  padding:'13px', borderRadius:'9px', textDecoration:'none', transition:'all 0.25s',
+                  fontFamily:SANS, fontWeight:700, fontSize:'0.9rem',
+                  ...(p.highlight
+                    ? { background:CYAN, color:BG }
+                    : { border:`1px solid ${BORDER}`, color:WHITE, background:'transparent' }),
+                }}
+              >
+                Get Started <ArrowRight size={14}/>
+              </a>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.p initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
+          style={{ fontFamily:SANS, fontSize:'0.85rem', color:MUTED, textAlign:'center', marginTop:'28px' }}>
+          Running Google or Meta ads? Management is 15% of ad spend (minimum ₹8,000/month),
+          and the ad budget itself is paid directly by you to Google or Meta.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────────────────────────
+   WORK  —  real projects, verifiable claims only
+   ────────────────────────────────────────────── */
+function Work() {
+  const projects = [
+    {
+      client:'A consulting firm',
+      role:'Client · SEO and content, 2026',
+      accent:'#22D3EE',
+      points:[
+        'Found their contact form had been silently discarding every enquiry — fixed it, and it produced a real enquiry within weeks',
+        'Their sitemap pointed at the wrong domain and listed 4 pages out of roughly 30',
+        'Published 7 in-depth guides and built 6 pages of interactive tools',
+        'Studied 130 recent posts across 6 competing firms to find the gaps',
+      ],
+    },
+    {
+      client:'A risk advisory firm',
+      role:'Client · Website and content, 2026',
+      accent:'#4ADE80',
+      points:[
+        'Built an interactive AI-disruption diagnostic — 16 questions across 4 scored dimensions',
+        'Launched an insights blog and published 8 in-depth articles',
+        'Set up GA4 tracking 11 specific actions, so we measure enquiries rather than guess',
+        'Redirected legacy URLs and added 404 tracking to stop losing existing traffic',
+      ],
+    },
+    {
+      client:'BelWo',
+      role:'In-house · Marketing Specialist, 2022–2026',
+      accent:'#A78BFA',
+      points:[
+        'Three and a half years running marketing for a US customer-communications firm',
+        'Content, newsletters, LinkedIn, events and lead tracking',
+        'Grew the company LinkedIn following and ran the full event research programme',
+        'Built the marketing strategy decks the leadership team worked from',
+      ],
+    },
+    {
+      client:'Lawgic',
+      role:'Co-founder · Law entrance coaching',
+      accent:'#FB923C',
+      points:[
+        'Built the SEO, directory presence and lead system from nothing',
+        'Listed across directories including UrbanPro, Brownbook and Justdial',
+        'Built the lead capture, WhatsApp automation and reporting dashboards myself',
+        'Everything I recommend here, I have already done for my own business',
+      ],
+    },
+  ];
+
+  return (
+    <section id="work" style={{ background:BG, padding:'100px 0' }}>
+      <div style={{ maxWidth:'1200px', margin:'0 auto', padding:'0 24px' }}>
+        <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
+          style={{ marginBottom:'56px' }}>
+          <span style={{ fontFamily:MONO, fontSize:'0.68rem', letterSpacing:'0.22em',
+            textTransform:'uppercase', color:CYAN, display:'block', marginBottom:'14px' }}>
+            The Work
+          </span>
+          <h2 style={{ fontFamily:SYNE, fontWeight:800,
+            fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
+            Rankflow is new.{' '}
+            <span style={{ color:CYAN }}>The work behind it isn&apos;t.</span>
+          </h2>
+          <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1.02rem', color:BODY,
+            marginTop:'16px', maxWidth:'620px', lineHeight:1.75 }}>
+            I&apos;m Karan Puri. Nine years in marketing — three and a half of them running it
+            in-house for a US software firm, and currently doing SEO and content for two
+            consulting practices. Client names on request — ask me about any of it and
+            I&apos;ll walk you through the work.
+          </p>
+        </motion.div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(330px, 1fr))', gap:'16px' }}>
+          {projects.map((p, i) => (
+            <motion.div key={i}
+              initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
+              viewport={{ once:true }} transition={{ delay:i*0.1 }}
+              className="card-hover"
+              style={{ background:BG_ALT, border:`1px solid ${BORDER}`,
+                borderRadius:'14px', padding:'32px 28px' }}>
+              <div style={{ display:'flex', alignItems:'center', gap:'9px', marginBottom:'6px' }}>
+                <div style={{ width:'7px', height:'7px', borderRadius:'50%', background:p.accent, flexShrink:0 }}/>
+                <span style={{ fontFamily:SYNE, fontWeight:700, fontSize:'1.12rem', color:WHITE }}>
+                  {p.client}
+                </span>
+              </div>
+              <div style={{ fontFamily:MONO, fontSize:'0.66rem', color:MUTED,
+                letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:'18px' }}>
+                {p.role}
+              </div>
+              <ul style={{ listStyle:'none', padding:0, margin:0,
+                display:'flex', flexDirection:'column', gap:'11px' }}>
+                {p.points.map((pt, j) => (
+                  <li key={j} style={{ display:'flex', alignItems:'flex-start', gap:'10px' }}>
+                    <span style={{ color:p.accent, marginTop:'6px', fontSize:'0.5rem', flexShrink:0 }}>◆</span>
+                    <span style={{ fontFamily:SANS, fontWeight:300, fontSize:'0.87rem',
+                      color:BODY, lineHeight:1.7 }}>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.p initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
+          style={{ fontFamily:SANS, fontSize:'0.86rem', color:MUTED, marginTop:'30px',
+            maxWidth:'620px', lineHeight:1.7 }}>
+          You won&apos;t find star ratings or client counts on this page. Rankflow launched in 2026
+          and hasn&apos;t earned them yet — so we haven&apos;t invented any.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────────────────────────
    PROCESS
    ────────────────────────────────────────────── */
 function Process() {
   const steps = [
-    { n:'01', title:'Free Audit',           desc:'AI-powered 5-point check: technical health, keyword gaps, competitor analysis, on-page score, speed. 48h turnaround. Zero commitment.' },
-    { n:'02', title:'Strategy & Kickoff',   desc:'90-day growth roadmap, KPI targets, and a 45-min strategy call. You know exactly what we do and why before we begin.' },
-    { n:'03', title:'AI-Led Execution',     desc:'Crawls, content pipeline, link outreach, and GEO optimisation — all tracked in a live client dashboard.' },
-    { n:'04', title:'Report & Scale',       desc:'Monthly report with traffic, rankings, ROI attribution, and next-step recommendations. We advise — not just report.' },
+    { n:'01', title:'Free visibility check', desc:'I look up your business the way a customer would, and send you a one-page breakdown of what shows up, what doesn\'t, and what a competitor is doing differently. Free, no call required.' },
+    { n:'02', title:'We agree the scope',    desc:'If it\'s useful, we pick a package from the pricing above. No proposal theatre, no three-week sales cycle. Month to month from the start.' },
+    { n:'03', title:'The work happens',      desc:'Profile, citations, site fixes, content — in the order that gets you found fastest. You get told what changed and why.' },
+    { n:'04', title:'Day 30: the numbers',   desc:'A before-and-after report on listing views, calls, directions and search positions. If it hasn\'t moved, we discuss why. Continue only if it worked.' },
   ];
 
   return (
@@ -439,8 +734,8 @@ function Process() {
           </span>
           <h2 style={{ fontFamily:SYNE, fontWeight:800,
             fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
-            From audit to traction{' '}
-            <span style={{ color:CYAN }}>in 30 days.</span>
+            Four steps.{' '}
+            <span style={{ color:CYAN }}>Thirty days.</span>
           </h2>
         </motion.div>
 
@@ -451,12 +746,10 @@ function Process() {
               initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }}
               viewport={{ once:true }} transition={{ delay:i*0.12 }}
               style={{ background:BG_ALT, padding:'36px 28px', position:'relative' }}>
-              {/* Ghost number */}
               <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'3.5rem',
                 color:'rgba(255,255,255,0.03)', position:'absolute', top:'16px', right:'20px',
                 lineHeight:1, userSelect:'none', pointerEvents:'none' }}>{s.n}</span>
 
-              {/* Step badge */}
               <div style={{ display:'inline-flex', alignItems:'center', justifyContent:'center',
                 width:'38px', height:'38px', borderRadius:'9px', marginBottom:'20px',
                 background:'rgba(34,211,238,0.08)', border:'1px solid rgba(34,211,238,0.22)' }}>
@@ -476,72 +769,42 @@ function Process() {
 }
 
 /* ──────────────────────────────────────────────
-   WHY US  (trust + stats)
+   WHY US
    ────────────────────────────────────────────── */
 function WhyUs() {
-  const stats = [
-    { n:'3×',   l:'Faster than traditional agencies',   sub:'AI workflows compress timelines' },
-    { n:'40%',  l:'Average organic traffic increase',   sub:'Across all active clients' },
-    { n:'98%',  l:'Client retention rate',              sub:'We keep clients because we deliver' },
-    { n:'48h',  l:'Free audit turnaround',              sub:'No waiting, no forms, real data' },
-  ];
-
   const reasons = [
-    { Icon:TrendingUp, t:'Speed-first delivery',    d:'AI tools compress months of work into weeks.' },
-    { Icon:Shield,     t:'Zero vanity metrics',     d:'GA4 + GSC data, not made-up scores.' },
-    { Icon:Brain,      t:'AI + human quality',      d:'Claude drafts. Experts review. Quality guaranteed.' },
-    { Icon:Clock,      t:'Full transparency',       d:'Every action logged in your live dashboard.' },
+    { Icon:Eye,    t:'Prices published',    d:'Every package and rate is on this page. No "request a quote".' },
+    { Icon:Shield, t:'You own everything',  d:'Your Google profile, website and ad accounts stay in your name.' },
+    { Icon:Clock,  t:'No lock-in',          d:'Month to month. Leave whenever, and take your accounts with you.' },
+    { Icon:Phone,  t:'You deal with me',    d:'Not an account manager. The person doing the work answers the phone.' },
   ];
 
   return (
     <section style={{ background:BG, padding:'100px 0' }}>
       <div style={{ maxWidth:'1200px', margin:'0 auto', padding:'0 24px' }}>
-
-        {/* Stats */}
-        <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
-          style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(240px, 1fr))',
-            gap:'1px', background:BORDER, borderRadius:'16px', overflow:'hidden', marginBottom:'80px' }}>
-          {stats.map((s, i) => (
-            <div key={i} style={{ background:BG, padding:'40px 28px' }}>
-              <div style={{ fontFamily:SYNE, fontWeight:800,
-                fontSize:'clamp(1.8rem, 3vw, 2.6rem)', color:CYAN, lineHeight:1 }}>{s.n}</div>
-              <div style={{ fontFamily:SYNE, fontWeight:600, fontSize:'1rem',
-                color:WHITE, marginTop:'8px', marginBottom:'4px' }}>{s.l}</div>
-              <div style={{ fontFamily:SANS, fontSize:'0.82rem', color:MUTED }}>{s.sub}</div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Why section */}
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'60px', alignItems:'center' }}
           className="grid-cols-1 lg:grid-cols-2">
           <motion.div initial={{ opacity:0, x:-30 }} whileInView={{ opacity:1, x:0 }} viewport={{ once:true }}>
             <span style={{ fontFamily:MONO, fontSize:'0.68rem', letterSpacing:'0.22em',
               textTransform:'uppercase', color:CYAN, display:'block', marginBottom:'14px' }}>
-              Why RANKFLOW
+              Why Rankflow
             </span>
             <h2 style={{ fontFamily:SYNE, fontWeight:800,
               fontSize:'clamp(1.6rem, 3vw, 2.4rem)', color:WHITE, lineHeight:1.12, marginBottom:'20px' }}>
-              We move faster because we work smarter.
+              Built to be easy to leave.
             </h2>
             <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1.02rem', color:BODY, lineHeight:1.78 }}>
-              Traditional SEO agencies are still copy-pasting reports from 2019.
-              We&apos;ve rebuilt every process around AI — so your results arrive in weeks, not quarters.
+              Agencies keep clients with lock-in contracts, accounts registered in the agency&apos;s
+              name, and reports nobody can check. We&apos;d rather keep you because the work is good.
+              So everything is month to month, everything is in your name, and the numbers come
+              from your own Google account — not ours.
             </p>
             <a href="#contact"
               style={{ display:'inline-flex', alignItems:'center', gap:'8px', marginTop:'28px',
                 padding:'13px 26px', borderRadius:'8px', background:CYAN, color:BG,
-                fontFamily:SANS, fontWeight:700, fontSize:'0.9rem', textDecoration:'none', transition:'all 0.25s' }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 28px rgba(34,211,238,0.4)';
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.transform = '';
-                (e.currentTarget as HTMLElement).style.boxShadow = '';
-              }}
+                fontFamily:SANS, fontWeight:700, fontSize:'0.9rem', textDecoration:'none' }}
             >
-              Get Started Today <ArrowRight size={15}/>
+              Get Your Free Check <ArrowRight size={15}/>
             </a>
           </motion.div>
 
@@ -570,225 +833,21 @@ function WhyUs() {
 }
 
 /* ──────────────────────────────────────────────
-   PRICING
+   CONTACT  —  actually submits
    ────────────────────────────────────────────── */
-function Pricing() {
-  const plans = [
-    {
-      name:'Starter', price:'₹40K – 60K', period:'/month',
-      desc:'For early-stage startups and local businesses.',
-      features:['Monthly technical SEO audit','On-page optimisation (5 pages)','Keyword research report','Monthly GA4 + GSC report','Email support'],
-      highlight:false, badge:null,
-    },
-    {
-      name:'Growth', price:'₹80K – 150K', period:'/month',
-      desc:'Full-stack SEO for growing SaaS companies.',
-      badge:'Most Popular',
-      features:['Everything in Starter','On-page optimisation (10 pages)','10 SEO blog articles / month','Link building (5–10 links / month)','Local SEO & GBP management','Competitor gap analysis','Bi-weekly strategy calls'],
-      highlight:true,
-    },
-    {
-      name:'AI Premium', price:'₹150K – 300K', period:'/month',
-      desc:'Enterprise AI SEO for serious SaaS scale.',
-      features:['Everything in Growth','On-page optimisation (15 pages)','15 SEO blog articles / month','GEO + AI Overview optimisation','Dedicated account manager','CRO & conversion tracking setup','Weekly calls · priority < 2h'],
-      highlight:false, badge:null,
-    },
-  ];
+type Status = 'idle' | 'sending' | 'sent' | 'error';
 
-  return (
-    <section id="pricing" style={{ background:BG_ALT, padding:'100px 0' }}>
-      <div style={{ maxWidth:'1200px', margin:'0 auto', padding:'0 24px' }}>
-        <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
-          style={{ textAlign:'center', marginBottom:'64px' }}>
-          <span style={{ fontFamily:MONO, fontSize:'0.68rem', letterSpacing:'0.22em',
-            textTransform:'uppercase', color:CYAN, display:'block', marginBottom:'14px' }}>
-            Pricing
-          </span>
-          <h2 style={{ fontFamily:SYNE, fontWeight:800,
-            fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
-            Transparent pricing.{' '}
-            <span style={{ color:CYAN }}>No surprises.</span>
-          </h2>
-          <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1.02rem', color:BODY,
-            marginTop:'14px', maxWidth:'480px', margin:'14px auto 0' }}>
-            All plans include a free onboarding audit and a 30-day results review.
-          </p>
-        </motion.div>
-
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(300px, 1fr))', gap:'20px' }}>
-          {plans.map((p, i) => (
-            <motion.div key={i}
-              initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
-              viewport={{ once:true }} transition={{ delay:i*0.1 }}
-              style={{
-                background: p.highlight ? BG : BG,
-                border: p.highlight ? `1px solid ${CYAN}40` : `1px solid ${BORDER}`,
-                borderRadius:'16px', padding:'36px 30px',
-                display:'flex', flexDirection:'column', position:'relative',
-                boxShadow: p.highlight ? `0 0 60px rgba(34,211,238,0.08)` : 'none',
-              }}
-            >
-              {p.badge && (
-                <div style={{ position:'absolute', top:'-13px', left:'50%', transform:'translateX(-50%)' }}>
-                  <span style={{ background:CYAN, color:BG, fontFamily:SYNE, fontWeight:700,
-                    fontSize:'0.7rem', padding:'4px 16px', borderRadius:'20px', letterSpacing:'0.04em' }}>
-                    {p.badge}
-                  </span>
-                </div>
-              )}
-
-              <div style={{ marginBottom:'24px' }}>
-                <p style={{ fontFamily:MONO, fontSize:'0.65rem', letterSpacing:'0.2em',
-                  textTransform:'uppercase', color: p.highlight ? CYAN : MUTED, marginBottom:'10px' }}>
-                  {p.name}
-                </p>
-                <div style={{ display:'flex', alignItems:'baseline', gap:'6px' }}>
-                  <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'2.1rem',
-                    color: p.highlight ? CYAN : WHITE, lineHeight:1 }}>
-                    {p.price}
-                  </span>
-                  <span style={{ fontFamily:SANS, fontSize:'0.82rem', color:MUTED }}>{p.period}</span>
-                </div>
-                <p style={{ fontFamily:SANS, fontSize:'0.85rem', color:BODY, marginTop:'8px' }}>{p.desc}</p>
-              </div>
-
-              <div style={{ height:'1px', background:BORDER, marginBottom:'24px' }}/>
-
-              <ul style={{ listStyle:'none', padding:0, margin:'0 0 32px', display:'flex',
-                flexDirection:'column', gap:'12px', flex:1 }}>
-                {p.features.map((f, j) => (
-                  <li key={j} style={{ display:'flex', alignItems:'flex-start', gap:'10px' }}>
-                    <CheckCircle2 size={15} color={ p.highlight ? CYAN : '#4ADE80' }
-                      strokeWidth={2} style={{ marginTop:'2px', flexShrink:0 }}/>
-                    <span style={{ fontFamily:SANS, fontSize:'0.88rem', color:BODY, lineHeight:1.55 }}>{f}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a href="#contact"
-                style={{
-                  display:'flex', alignItems:'center', justifyContent:'center', gap:'8px',
-                  padding:'13px', borderRadius:'9px', textDecoration:'none', transition:'all 0.25s',
-                  fontFamily:SANS, fontWeight:700, fontSize:'0.9rem',
-                  ...(p.highlight
-                    ? { background:CYAN, color:BG }
-                    : { border:`1px solid ${BORDER}`, color:WHITE,
-                        background:'transparent' }),
-                }}
-                onMouseEnter={e => {
-                  if (p.highlight) {
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 28px rgba(34,211,238,0.4)';
-                    (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-                  } else {
-                    (e.currentTarget as HTMLElement).style.borderColor = `${CYAN}40`;
-                    (e.currentTarget as HTMLElement).style.color = CYAN;
-                  }
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '';
-                  (e.currentTarget as HTMLElement).style.transform = '';
-                  (e.currentTarget as HTMLElement).style.borderColor = BORDER;
-                  (e.currentTarget as HTMLElement).style.color = p.highlight ? BG : WHITE;
-                }}
-              >
-                Get Started <ArrowRight size={14}/>
-              </a>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.p initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
-          style={{ fontFamily:SANS, fontSize:'0.85rem', color:MUTED, textAlign:'center', marginTop:'28px' }}>
-          Not sure which plan?{' '}
-          <a href="#contact" style={{ color:CYAN, textDecoration:'none' }}
-            onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')}
-            onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}>
-            Start with a free mini-audit
-          </a>{' '}
-          and we&apos;ll recommend the right tier.
-        </motion.p>
-      </div>
-    </section>
-  );
-}
-
-/* ──────────────────────────────────────────────
-   RESULTS
-   ────────────────────────────────────────────── */
-function Results() {
-  const cases = [
-    { client:'SaaS Analytics Tool',  lift:'+218%', metric:'Organic Traffic',  period:'4 months',       accent:'#22D3EE' },
-    { client:'Fintech Startup',      lift:'#1',    metric:'Google Ranking',   period:'Target keyword',  accent:'#4ADE80' },
-    { client:'EdTech Platform',      lift:'+340%', metric:'Leads from SEO',   period:'6 months',        accent:'#A78BFA' },
-    { client:'Chandigarh Clinic',    lift:'3×',    metric:'Map Pack Calls',   period:'60 days',         accent:'#FB923C' },
-  ];
-
-  return (
-    <section id="results" style={{ background:BG, padding:'100px 0' }}>
-      <div style={{ maxWidth:'1200px', margin:'0 auto', padding:'0 24px' }}>
-        <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
-          style={{ marginBottom:'64px' }}>
-          <span style={{ fontFamily:MONO, fontSize:'0.68rem', letterSpacing:'0.22em',
-            textTransform:'uppercase', color:CYAN, display:'block', marginBottom:'14px' }}>
-            Client Results
-          </span>
-          <h2 style={{ fontFamily:SYNE, fontWeight:800,
-            fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, margin:0 }}>
-            Numbers that{' '}
-            <span style={{ color:CYAN }}>don&apos;t lie.</span>
-          </h2>
-        </motion.div>
-
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(260px, 1fr))', gap:'16px' }}>
-          {cases.map((c, i) => (
-            <motion.div key={i}
-              initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
-              viewport={{ once:true }} transition={{ delay:i*0.1 }}
-              className="card-hover"
-              style={{ background:BG_ALT, border:`1px solid ${BORDER}`,
-                borderRadius:'14px', padding:'36px 28px' }}>
-              <div style={{ display:'block', background:`${c.accent}14`, border:`1px solid ${c.accent}33`,
-                borderRadius:'10px', padding:'12px 16px', marginBottom:'14px',
-                boxSizing:'border-box' as const, overflow:'hidden' as const }}>
-                <div style={{ fontFamily:SYNE, fontWeight:800,
-                  fontSize:'2rem', color:c.accent, lineHeight:1 }}>
-                  {c.lift}
-                </div>
-              </div>
-              <div style={{ fontFamily:SYNE, fontWeight:600, fontSize:'1rem', color:WHITE, marginBottom:'6px' }}>
-                {c.metric}
-              </div>
-              <div style={{ height:'1px', background:BORDER, margin:'14px 0' }}/>
-              <div style={{ fontFamily:SANS, fontWeight:500, fontSize:'0.9rem', color:BODY, marginBottom:'6px' }}>
-                {c.client}
-              </div>
-              <div style={{ display:'flex', alignItems:'center', gap:'6px' }}>
-                <div style={{ width:'6px', height:'6px', borderRadius:'50%', background:c.accent }}/>
-                <span style={{ fontFamily:MONO, fontSize:'0.7rem', color:MUTED, letterSpacing:'0.08em' }}>
-                  {c.period}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ──────────────────────────────────────────────
-   CONTACT
-   ────────────────────────────────────────────── */
 function Contact() {
-  const [form, setForm] = useState({ name:'', email:'', website:'', message:'' });
-  const [sent, setSent] = useState(false);
+  const [form, setForm]     = useState({ name:'', phone:'', business:'', message:'' });
+  const [status, setStatus] = useState<Status>('idle');
+  const endpoint = formEndpoint();
 
   const inputStyle = {
     width:'100%', padding:'13px 16px',
     background:'rgba(255,255,255,0.04)', border:`1px solid ${BORDER}`,
     borderRadius:'8px', color:WHITE,
     fontFamily:SANS, fontSize:'0.9rem', outline:'none',
-    transition:'border-color 0.25s',
+    transition:'border-color 0.25s', boxSizing:'border-box' as const,
   };
 
   const focus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -796,9 +855,32 @@ function Contact() {
   const blur  = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     (e.target.style.borderColor = BORDER);
 
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!endpoint) return;          // guarded: the form is not rendered without an endpoint
+    setStatus('sending');
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          business: form.business,
+          message: form.message,
+          _subject: `New Rankflow enquiry — ${form.name || 'unnamed'}`,
+        }),
+      });
+      if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+      setStatus('sent');
+    } catch (err) {
+      console.error('Contact form submission failed:', err);
+      setStatus('error');
+    }
+  }
+
   return (
     <section id="contact" style={{ background:BG_ALT, padding:'100px 0', position:'relative', overflow:'hidden' }}>
-      {/* Top accent line */}
       <div style={{ position:'absolute', top:0, left:'10%', right:'10%', height:'1px',
         background:`linear-gradient(90deg, transparent, ${CYAN}40, transparent)` }}/>
 
@@ -806,117 +888,88 @@ function Contact() {
         <div style={{ display:'grid', gap:'64px', alignItems:'start' }}
           className="grid-cols-1 lg:grid-cols-2">
 
-          {/* Left copy */}
           <motion.div initial={{ opacity:0, x:-30 }} whileInView={{ opacity:1, x:0 }} viewport={{ once:true }}>
             <span style={{ fontFamily:MONO, fontSize:'0.68rem', letterSpacing:'0.22em',
               textTransform:'uppercase', color:CYAN, display:'block', marginBottom:'14px' }}>
-              Free Audit
+              Free Visibility Check
             </span>
             <h2 style={{ fontFamily:SYNE, fontWeight:800,
               fontSize:'clamp(1.6rem, 3vw, 2.6rem)', color:WHITE, lineHeight:1.1, marginBottom:'20px' }}>
-              Get your free<br/>
-              <span style={{ color:CYAN }}>SEO health check.</span>
+              See what Google shows<br/>
+              <span style={{ color:CYAN }}>for your business.</span>
             </h2>
             <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1rem', color:BODY,
               lineHeight:1.78, marginBottom:'36px' }}>
-              We audit your site within 48 hours. No sales call required.
-              Real data — not a template report.
+              Tell me your business name and I&apos;ll look it up the way a customer would.
+              You get a one-page breakdown within two working days — free, and yours to keep
+              whether or not we work together.
             </p>
-            <div style={{ display:'flex', flexDirection:'column', gap:'14px' }}>
+            <div style={{ display:'flex', flexDirection:'column', gap:'14px', marginBottom:'34px' }}>
               {[
-                '5-point technical health check',
-                'Keyword gap & opportunity analysis',
-                'Top 3 competitor benchmark',
-                'On-page optimisation score',
-                'Speed & Core Web Vitals diagnosis',
+                'What your Google listing shows right now',
+                'Which competitor is appearing above you, and why',
+                'Whether your website works on a phone',
+                'Three specific things to fix first',
               ].map((item, i) => (
                 <motion.div key={i}
                   initial={{ opacity:0, x:-16 }} whileInView={{ opacity:1, x:0 }}
                   viewport={{ once:true }} transition={{ delay:i*0.08 }}
-                  style={{ display:'flex', alignItems:'center', gap:'12px' }}>
-                  <CheckCircle2 size={16} color={CYAN} strokeWidth={2}/>
+                  style={{ display:'flex', alignItems:'flex-start', gap:'12px' }}>
+                  <CheckCircle2 size={16} color={CYAN} strokeWidth={2} style={{ marginTop:'2px', flexShrink:0 }}/>
                   <span style={{ fontFamily:SANS, fontSize:'0.9rem', color:BODY }}>{item}</span>
                 </motion.div>
               ))}
             </div>
+
+            <div style={{ display:'flex', flexWrap:'wrap', gap:'12px' }}>
+              <a href={waLink()} target="_blank" rel="noopener noreferrer"
+                style={{ display:'inline-flex', alignItems:'center', gap:'9px',
+                  background:'#25D366', color:'#062314', padding:'13px 22px', borderRadius:'9px',
+                  fontFamily:SANS, fontWeight:700, fontSize:'0.9rem', textDecoration:'none' }}>
+                <MessageCircle size={17}/> WhatsApp instead
+              </a>
+              {CONTACT.phoneE164 && (
+                <a href={`tel:${CONTACT.phoneE164}`}
+                  style={{ display:'inline-flex', alignItems:'center', gap:'9px',
+                    border:`1px solid ${BORDER}`, color:WHITE, padding:'13px 22px', borderRadius:'9px',
+                    fontFamily:SANS, fontWeight:600, fontSize:'0.9rem', textDecoration:'none' }}>
+                  <Phone size={16}/> {CONTACT.phoneDisplay}
+                </a>
+              )}
+            </div>
           </motion.div>
 
-          {/* Right form */}
           <motion.div initial={{ opacity:0, x:30 }} whileInView={{ opacity:1, x:0 }}
             viewport={{ once:true }} transition={{ delay:0.15 }}>
             <div style={{ background:BG, border:`1px solid ${BORDER}`,
               borderRadius:'16px', padding:'40px' }}>
-              {!sent ? (
-                <form onSubmit={e => { e.preventDefault(); setSent(true); }}
-                  style={{ display:'flex', flexDirection:'column', gap:'20px' }}>
 
-                  <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'16px' }}>
-                    {[
-                      { label:'Name',  key:'name',  type:'text',  ph:'Your name' },
-                      { label:'Email', key:'email', type:'email', ph:'you@company.com' },
-                    ].map(f => (
-                      <div key={f.key}>
-                        <label style={{ fontFamily:MONO, fontSize:'0.62rem', color:MUTED,
-                          letterSpacing:'0.18em', display:'block', textTransform:'uppercase', marginBottom:'8px' }}>
-                          {f.label}
-                        </label>
-                        <input type={f.type} required placeholder={f.ph}
-                          value={form[f.key as keyof typeof form]}
-                          onChange={e => setForm({ ...form, [f.key]: e.target.value })}
-                          style={{ ...inputStyle, boxSizing:'border-box' as const }}
-                          onFocus={focus} onBlur={blur}
-                        />
-                      </div>
-                    ))}
+              {/* No endpoint configured — send people somewhere that works
+                  rather than showing a form that silently fails. */}
+              {!endpoint ? (
+                <div style={{ textAlign:'center', padding:'20px 0' }}>
+                  <div style={{ width:'52px', height:'52px', borderRadius:'12px', margin:'0 auto 20px',
+                    display:'flex', alignItems:'center', justifyContent:'center',
+                    background:'rgba(251,146,60,0.1)', border:'1px solid rgba(251,146,60,0.25)' }}>
+                    <AlertCircle size={26} color="#FB923C" strokeWidth={1.6}/>
                   </div>
-
-                  <div>
-                    <label style={{ fontFamily:MONO, fontSize:'0.62rem', color:MUTED,
-                      letterSpacing:'0.18em', display:'block', textTransform:'uppercase', marginBottom:'8px' }}>
-                      Website URL
-                    </label>
-                    <input type="url" placeholder="https://yoursite.com" value={form.website}
-                      onChange={e => setForm({ ...form, website:e.target.value })}
-                      style={{ ...inputStyle, boxSizing:'border-box' as const }}
-                      onFocus={focus} onBlur={blur}
-                    />
-                  </div>
-
-                  <div>
-                    <label style={{ fontFamily:MONO, fontSize:'0.62rem', color:MUTED,
-                      letterSpacing:'0.18em', display:'block', textTransform:'uppercase', marginBottom:'8px' }}>
-                      What are you struggling with?
-                    </label>
-                    <textarea rows={4} placeholder="Low traffic, bad rankings, no idea where to start…"
-                      value={form.message} onChange={e => setForm({ ...form, message:e.target.value })}
-                      style={{ ...inputStyle, resize:'none', boxSizing:'border-box' as const }}
-                      onFocus={focus} onBlur={blur}
-                    />
-                  </div>
-
-                  <button type="submit"
-                    style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:'8px',
-                      padding:'15px', borderRadius:'9px', background:CYAN, color:BG,
-                      fontFamily:SANS, fontWeight:700, fontSize:'0.95rem',
-                      border:'none', cursor:'pointer', transition:'all 0.25s' }}
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-                      (e.currentTarget as HTMLElement).style.boxShadow = '0 10px 32px rgba(34,211,238,0.4)';
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLElement).style.transform = '';
-                      (e.currentTarget as HTMLElement).style.boxShadow = '';
-                    }}
-                  >
-                    Get My Free Audit <ArrowRight size={16}/>
-                  </button>
-
-                  <p style={{ fontFamily:SANS, fontSize:'0.78rem', color:MUTED,
-                    textAlign:'center', margin:0 }}>
-                    No spam. No sales call. Audit delivered in 48 hours.
+                  <h3 style={{ fontFamily:SYNE, fontWeight:800, fontSize:'1.25rem',
+                    color:WHITE, marginBottom:'12px' }}>
+                    Message us directly
+                  </h3>
+                  <p style={{ fontFamily:SANS, fontSize:'0.9rem', color:BODY,
+                    lineHeight:1.7, marginBottom:'26px' }}>
+                    WhatsApp is the quickest way to reach us — usually a reply within a few hours.
                   </p>
-                </form>
-              ) : (
+                  <a href={waLink()} target="_blank" rel="noopener noreferrer"
+                    style={{ display:'inline-flex', alignItems:'center', gap:'9px',
+                      background:'#25D366', color:'#062314', padding:'14px 26px', borderRadius:'9px',
+                      fontFamily:SANS, fontWeight:700, fontSize:'0.95rem', textDecoration:'none' }}>
+                    <MessageCircle size={18}/> Open WhatsApp
+                  </a>
+                  {/* DEV NOTE: set CONTACT.formspreeId in src/config.ts to enable the form. */}
+                </div>
+              ) : status === 'sent' ? (
                 <motion.div initial={{ opacity:0, scale:0.95 }} animate={{ opacity:1, scale:1 }}
                   style={{ padding:'40px 0', textAlign:'center' }}>
                   <div style={{ width:'56px', height:'56px', borderRadius:'12px', margin:'0 auto 24px',
@@ -925,13 +978,97 @@ function Contact() {
                     <CheckCircle2 size={28} color={CYAN} strokeWidth={1.5}/>
                   </div>
                   <h3 style={{ fontFamily:SYNE, fontWeight:800, fontSize:'1.5rem',
-                    color:WHITE, marginBottom:'12px' }}>Audit request received!</h3>
+                    color:WHITE, marginBottom:'12px' }}>Got it — thank you.</h3>
                   <p style={{ fontFamily:SANS, fontSize:'0.92rem', color:BODY, lineHeight:1.7, margin:0 }}>
-                    Your free SEO audit will be ready within 48 hours.<br/>
-                    We&apos;ll reach out at{' '}
-                    <span style={{ color:CYAN }}>{form.email}</span>.
+                    Your visibility check will be with you within two working days.
+                    If it&apos;s urgent, WhatsApp is faster.
                   </p>
                 </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit}
+                  style={{ display:'flex', flexDirection:'column', gap:'20px' }}>
+
+                  <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'16px' }}>
+                    {[
+                      { label:'Name',  key:'name',  type:'text', ph:'Your name',    required:true },
+                      { label:'Phone', key:'phone', type:'tel',  ph:'98765 43210',  required:true },
+                    ].map(f => (
+                      <div key={f.key}>
+                        <label htmlFor={f.key} style={{ fontFamily:MONO, fontSize:'0.62rem', color:MUTED,
+                          letterSpacing:'0.18em', display:'block', textTransform:'uppercase', marginBottom:'8px' }}>
+                          {f.label}
+                        </label>
+                        <input id={f.key} name={f.key} type={f.type} required={f.required} placeholder={f.ph}
+                          value={form[f.key as keyof typeof form]}
+                          onChange={e => setForm({ ...form, [f.key]: e.target.value })}
+                          style={inputStyle} onFocus={focus} onBlur={blur}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div>
+                    <label htmlFor="business" style={{ fontFamily:MONO, fontSize:'0.62rem', color:MUTED,
+                      letterSpacing:'0.18em', display:'block', textTransform:'uppercase', marginBottom:'8px' }}>
+                      Business name and area
+                    </label>
+                    <input id="business" name="business" type="text" required
+                      placeholder="e.g. Sharma Dental Clinic, Sector 35"
+                      value={form.business}
+                      onChange={e => setForm({ ...form, business:e.target.value })}
+                      style={inputStyle} onFocus={focus} onBlur={blur}
+                    />
+                    <p style={{ fontFamily:SANS, fontSize:'0.74rem', color:MUTED, marginTop:'7px' }}>
+                      No website needed — that&apos;s often the problem we&apos;re fixing.
+                    </p>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" style={{ fontFamily:MONO, fontSize:'0.62rem', color:MUTED,
+                      letterSpacing:'0.18em', display:'block', textTransform:'uppercase', marginBottom:'8px' }}>
+                      What would you like more of? <span style={{ textTransform:'none' }}>(optional)</span>
+                    </label>
+                    <textarea id="message" name="message" rows={3}
+                      placeholder="More calls, more walk-ins, no idea where to start…"
+                      value={form.message} onChange={e => setForm({ ...form, message:e.target.value })}
+                      style={{ ...inputStyle, resize:'none' }}
+                      onFocus={focus} onBlur={blur}
+                    />
+                  </div>
+
+                  {status === 'error' && (
+                    <div style={{ display:'flex', alignItems:'flex-start', gap:'10px',
+                      background:'rgba(248,113,113,0.08)', border:'1px solid rgba(248,113,113,0.3)',
+                      borderRadius:'8px', padding:'13px 15px' }}>
+                      <AlertCircle size={17} color="#F87171" style={{ marginTop:'1px', flexShrink:0 }}/>
+                      <span style={{ fontFamily:SANS, fontSize:'0.84rem', color:'#FCA5A5', lineHeight:1.6 }}>
+                        That didn&apos;t send — something went wrong at our end.{' '}
+                        <a href={waLink()} target="_blank" rel="noopener noreferrer"
+                          style={{ color:'#FCA5A5', textDecoration:'underline' }}>
+                          Message us on WhatsApp
+                        </a>{' '}
+                        and we&apos;ll pick it up straight away.
+                      </span>
+                    </div>
+                  )}
+
+                  <button type="submit" disabled={status === 'sending'}
+                    style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:'8px',
+                      padding:'15px', borderRadius:'9px', background:CYAN, color:BG,
+                      fontFamily:SANS, fontWeight:700, fontSize:'0.95rem',
+                      border:'none', cursor: status === 'sending' ? 'wait' : 'pointer',
+                      opacity: status === 'sending' ? 0.7 : 1, transition:'all 0.25s' }}
+                  >
+                    {status === 'sending' ? 'Sending…' : 'Get My Free Check'}
+                    {status !== 'sending' && <ArrowRight size={16}/>}
+                  </button>
+
+                  <p style={{ fontFamily:SANS, fontSize:'0.78rem', color:MUTED,
+                    textAlign:'center', margin:0, lineHeight:1.6 }}>
+                    We&apos;ll only use your number to send the check and follow up once.
+                    No lists, no spam.
+                  </p>
+                </form>
               )}
             </div>
           </motion.div>
@@ -946,23 +1083,48 @@ function Contact() {
    ────────────────────────────────────────────── */
 function Footer() {
   const cols = [
-    { label:'Services', items:['Technical SEO','AI Content Engine','GEO Optimization','Link Building','Local SEO'] },
-    { label:'Company',  items:['About','Case Studies','Blog','Contact','Pricing'] },
-    { label:'Contact',  items:['Chandigarh, India','hello@rankflow.co','LinkedIn','Twitter / X'] },
+    {
+      label:'Services',
+      items:[
+        { t:'Google Business Profile', h:'#services' },
+        { t:'Local SEO',               h:'#services' },
+        { t:'Content & Blogs',         h:'#services' },
+        { t:'Website Fixes',           h:'#services' },
+        { t:'Google & Meta Ads',       h:'#services' },
+      ],
+    },
+    {
+      label:'Company',
+      items:[
+        { t:'The Work', h:'#work'    },
+        { t:'Pricing',  h:'#pricing' },
+        { t:'Process',  h:'#process' },
+        { t:'Contact',  h:'#contact' },
+      ],
+    },
+    {
+      label:'Get in touch',
+      items:[
+        { t:'WhatsApp',            h:waLink()                    },
+        ...(CONTACT.phoneE164 ? [{ t:CONTACT.phoneDisplay, h:`tel:${CONTACT.phoneE164}` }] : []),
+        { t:CONTACT.email,         h:`mailto:${CONTACT.email}`   },
+        { t:'Chandigarh, India',   h:'#contact'                  },
+      ],
+    },
   ];
 
   return (
     <footer style={{ background:BG, borderTop:`1px solid ${BORDER}` }}>
-      <div style={{ maxWidth:'1200px', margin:'0 auto', padding:'64px 24px' }}>
+      <div style={{ maxWidth:'1200px', margin:'0 auto', padding:'64px 24px 90px' }}>
         <div style={{ display:'flex', flexDirection:'column', gap:'48px' }}>
           <div style={{ display:'grid', gap:'48px', gridTemplateColumns:'1fr' }}
             className="grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
-            {/* Brand column */}
             <div>
               <div style={{ marginBottom:'16px' }}><Logo/></div>
               <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'0.88rem', color:MUTED,
-                lineHeight:1.75, maxWidth:'260px' }}>
-                AI-augmented SEO for SaaS companies. Faster results, full transparency, zero vanity metrics.
+                lineHeight:1.75, maxWidth:'280px' }}>
+                SEO and digital marketing for professional firms across Chandigarh,
+                Mohali and Panchkula. Published prices, no lock-in, accounts in your name.
               </p>
             </div>
 
@@ -975,12 +1137,15 @@ function Footer() {
                 <ul style={{ listStyle:'none', padding:0, margin:0, display:'flex',
                   flexDirection:'column', gap:'10px' }}>
                   {col.items.map(item => (
-                    <li key={item}>
-                      <a href="#" style={{ fontFamily:SANS, fontSize:'0.86rem', color:MUTED,
-                        textDecoration:'none', transition:'color 0.2s' }}
+                    <li key={item.t}>
+                      <a href={item.h}
+                        {...(item.h.startsWith('http')
+                          ? { target:'_blank', rel:'noopener noreferrer' } : {})}
+                        style={{ fontFamily:SANS, fontSize:'0.86rem', color:MUTED,
+                          textDecoration:'none', transition:'color 0.2s' }}
                         onMouseEnter={e => (e.currentTarget.style.color = WHITE)}
                         onMouseLeave={e => (e.currentTarget.style.color = MUTED)}>
-                        {item}
+                        {item.t}
                       </a>
                     </li>
                   ))}
@@ -989,20 +1154,11 @@ function Footer() {
             ))}
           </div>
 
-          <div style={{ borderTop:`1px solid ${BORDER}`, paddingTop:'28px',
-            display:'flex', flexWrap:'wrap', justifyContent:'space-between',
-            alignItems:'center', gap:'16px' }}>
+          <div style={{ borderTop:`1px solid ${BORDER}`, paddingTop:'28px' }}>
             <p style={{ fontFamily:MONO, fontSize:'0.65rem', color:'#2D3748',
               letterSpacing:'0.1em', margin:0 }}>
-              © 2026 RANKFLOW. ALL RIGHTS RESERVED.
+              © {new Date().getFullYear()} RANKFLOW · CHANDIGARH, INDIA
             </p>
-            <div style={{ display:'flex', alignItems:'center', gap:'8px' }}>
-              <span className="animate-pulse" style={{ width:'7px', height:'7px',
-                borderRadius:'50%', background:'#4ADE80', display:'block' }}/>
-              <span style={{ fontFamily:MONO, fontSize:'0.65rem', color:'#2D3748', letterSpacing:'0.1em' }}>
-                ALL SYSTEMS OPERATIONAL
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -1015,17 +1171,18 @@ function Footer() {
    ────────────────────────────────────────────── */
 export default function Home() {
   return (
-    <main className="noise-overlay">
+    <main>
       <Nav />
       <Hero />
       <Ticker />
       <Services />
+      <Pricing />
+      <Work />
       <Process />
       <WhyUs />
-      <Pricing />
-      <Results />
       <Contact />
       <Footer />
+      <WhatsAppFloat />
     </main>
   );
 }

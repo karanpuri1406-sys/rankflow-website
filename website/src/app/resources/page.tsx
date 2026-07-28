@@ -1,6 +1,8 @@
 import { sanityFetch } from '../../../sanity/lib/client'
 import { allCollateralsQuery } from '../../../sanity/lib/queries'
+import type { ResourceSummary } from '@/types/sanity'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata = {
   title: 'Free SEO Resources | RANKFLOW',
@@ -14,7 +16,7 @@ const typeColors: Record<string, string> = {
 }
 
 export default async function ResourcesPage() {
-  const items = await sanityFetch(allCollateralsQuery)
+  const items: ResourceSummary[] = await sanityFetch(allCollateralsQuery)
 
   return (
     <main style={{ background: '#05070E', minHeight: '100vh', padding: '120px 24px 80px' }}>
@@ -35,14 +37,14 @@ export default async function ResourcesPage() {
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
-            {items.map((item: any) => (
+            {items.map((item) => (
               <Link key={item._id} href={`/resources/${item.slug.current}`} style={{ textDecoration: 'none' }}>
                 <article style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', overflow: 'hidden', transition: 'all 0.2s' }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(34,211,238,0.3)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)'; (e.currentTarget as HTMLElement).style.transform = ''; }}
                 >
                   {item.coverImage?.asset?.url && (
-                    <img src={item.coverImage.asset.url} alt={item.title} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+                    <Image src={item.coverImage.asset.url} alt={item.title} width={600} height={180} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
                   )}
                   <div style={{ padding: '24px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
