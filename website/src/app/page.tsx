@@ -638,13 +638,13 @@ function Work() {
     },
     {
       client:'Lawgic',
-      role:'Co-founder · Law entrance coaching',
+      role:'Founder-led venture · Law entrance coaching',
       accent:'#FB923C',
       points:[
         'Built the SEO, directory presence and lead system from nothing',
         'Listed across directories including UrbanPro, Brownbook and Justdial',
-        'Built the lead capture, WhatsApp automation and reporting dashboards myself',
-        'Everything I recommend here, I have already done for my own business',
+        'Built the lead capture, WhatsApp automation and reporting dashboards in-house',
+        'Every method we recommend here has been run on our own business first',
       ],
     },
   ];
@@ -665,11 +665,11 @@ function Work() {
           </h2>
           <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1.02rem', color:BODY,
             marginTop:'16px', maxWidth:'620px', lineHeight:1.75 }}>
-            I&apos;m Karan Puri. I spent three and a half years running marketing in-house
-            for a US software firm, co-founded an edtech platform and built its SEO from
-            nothing, and today handle SEO and content for two consulting practices.
-            Client names on request — ask me about any of it and I&apos;ll walk you
-            through the actual work.
+            Rankflow was founded by Karan Puri, who spent three and a half years running
+            marketing in-house for a US software firm and co-founded an edtech platform,
+            building its SEO and lead systems from nothing. We currently handle SEO and
+            content for two consulting practices. Client names on request — ask us about
+            any of this and we&apos;ll walk you through the actual work.
           </p>
         </motion.div>
 
@@ -721,7 +721,7 @@ function Work() {
    ────────────────────────────────────────────── */
 function Process() {
   const steps = [
-    { n:'01', title:'Free visibility check', desc:'I look up your business the way a customer would, and send you a one-page breakdown of what shows up, what doesn\'t, and what a competitor is doing differently. Free, no call required.' },
+    { n:'01', title:'Free visibility check', desc:'We look up your business the way a customer would, and send you a one-page breakdown of what shows up, what doesn\'t, and what a competitor is doing differently. Free, no call required.' },
     { n:'02', title:'We agree the scope',    desc:'If it\'s useful, we pick a package from the pricing above. No proposal theatre, no three-week sales cycle. Month to month from the start.' },
     { n:'03', title:'The work happens',      desc:'Profile, citations, site fixes, content — in the order that gets you found fastest. You get told what changed and why.' },
     { n:'04', title:'Day 30: the numbers',   desc:'A before-and-after report on listing views, calls, directions and search positions. If it hasn\'t moved, we discuss why. Continue only if it worked.' },
@@ -780,7 +780,7 @@ function WhyUs() {
     { Icon:Eye,    t:'Prices published',    d:'Every package and rate is on this page. No "request a quote".' },
     { Icon:Shield, t:'You own everything',  d:'Your Google profile, website and ad accounts stay in your name.' },
     { Icon:Clock,  t:'No lock-in',          d:'Month to month. Leave whenever, and take your accounts with you.' },
-    { Icon:Phone,  t:'You deal with me',    d:'Not an account manager. The person doing the work answers the phone.' },
+    { Icon:Phone,  t:'Direct access',       d:'You speak to the people doing the work, not a rotating account manager.' },
   ];
 
   return (
@@ -904,7 +904,7 @@ function Contact() {
             </h2>
             <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1rem', color:BODY,
               lineHeight:1.78, marginBottom:'36px' }}>
-              Tell me your business name and I&apos;ll look it up the way a customer would.
+              Tell us your business name and we&apos;ll look it up the way a customer would.
               You get a one-page breakdown within two working days — free, and yours to keep
               whether or not we work together.
             </p>
