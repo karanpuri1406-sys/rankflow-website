@@ -327,18 +327,21 @@ function Hero() {
           </a>
         </motion.div>
 
-        {/* Honest credentials — every claim here is verifiable */}
+        {/* Commitments rather than counts. Each of these is something a
+            prospect can hold us to, and something most agencies won't offer —
+            which is a stronger opening than any number a new firm can print. */}
         <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ delay:1.05 }}
-          style={{ display:'flex', flexWrap:'wrap', alignItems:'flex-start', gap:'32px',
-            borderTop:'1px solid rgba(255,255,255,0.12)', paddingTop:'32px', maxWidth:'760px' }}>
+          style={{ display:'flex', flexWrap:'wrap', alignItems:'center', gap:'14px 28px',
+            borderTop:'1px solid rgba(255,255,255,0.12)', paddingTop:'30px', maxWidth:'820px' }}>
           {[
-            { n:'9 yrs',  l:'In marketing' },
-            { n:'3.5 yrs', l:'In-house B2B marketing lead' },
-            { n:'2',      l:'Consulting firms as active clients' },
-          ].map((s, i) => (
-            <div key={i}>
-              <div style={{ fontFamily:SYNE, fontWeight:800, fontSize:'1.5rem', color:WHITE, lineHeight:1 }}>{s.n}</div>
-              <div style={{ fontFamily:SANS, fontSize:'0.78rem', color:'#94A3B8', marginTop:'4px' }}>{s.l}</div>
+            'Prices published, not quoted',
+            'No lock-in contracts',
+            'Every account in your name',
+            'Chandigarh-based',
+          ].map((t, i) => (
+            <div key={i} style={{ display:'flex', alignItems:'center', gap:'9px' }}>
+              <CheckCircle2 size={15} color={CYAN} strokeWidth={2.2} style={{ flexShrink:0 }}/>
+              <span style={{ fontFamily:SANS, fontWeight:500, fontSize:'0.88rem', color:'#E2E8F0' }}>{t}</span>
             </div>
           ))}
         </motion.div>
@@ -662,10 +665,11 @@ function Work() {
           </h2>
           <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'1.02rem', color:BODY,
             marginTop:'16px', maxWidth:'620px', lineHeight:1.75 }}>
-            I&apos;m Karan Puri. Nine years in marketing — three and a half of them running it
-            in-house for a US software firm, and currently doing SEO and content for two
-            consulting practices. Client names on request — ask me about any of it and
-            I&apos;ll walk you through the work.
+            I&apos;m Karan Puri. I spent three and a half years running marketing in-house
+            for a US software firm, co-founded an edtech platform and built its SEO from
+            nothing, and today handle SEO and content for two consulting practices.
+            Client names on request — ask me about any of it and I&apos;ll walk you
+            through the actual work.
           </p>
         </motion.div>
 
