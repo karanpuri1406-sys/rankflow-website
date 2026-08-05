@@ -265,9 +265,9 @@ function Hero() {
         <motion.p initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.78 }}
           style={{ ...P, fontSize:'clamp(1rem, 1.7vw, 1.16rem)', color:'#E2E8F0',
             maxWidth:'660px', marginBottom:'38px', textShadow:'0 1px 14px rgba(0,0,0,0.6)' }}>
-          Pew found people click a result on 8% of searches that show an AI summary,
-          against 15% without. The traffic did not go to a competitor — it went to the
-          answer.{' '}
+          Pew Research Center found people click a result on 8% of searches showing an AI
+          summary, against 15% without. The traffic did not go to a competitor — it went to
+          the answer.{' '}
           <span style={{ color:WHITE, fontWeight:500 }}>We&apos;ll show you, free, what AI
           says about your category today.</span>
         </motion.p>
@@ -336,14 +336,23 @@ function Problem() {
             and nobody can quite explain where the traffic went.
           </p>
           <p style={P}>
-            It went to the answer. Pew tracked 68,879 real searches and found people clicked
-            a result on <span style={{ color:WHITE, fontWeight:500 }}>8% of pages showing an
-            AI summary, against 15% of pages without one</span> — and only 1% clicked a link
-            inside the summary itself. Ahrefs measured the same shift from the other end:
-            across 300,000 keywords, the top-ranking page lost{' '}
+            It went to the answer. The Pew Research Center — a nonpartisan institute in
+            Washington that sells nothing in this market — tracked 68,879 real searches and
+            found people clicked a result on{' '}
+            <span style={{ color:WHITE, fontWeight:500 }}>8% of pages showing an AI summary,
+            against 15% of pages without one</span>. Only 1% clicked a link inside the
+            summary itself. Ahrefs, an SEO software firm, measured the same shift from the
+            other end: across 300,000 keywords, the top-ranking page lost{' '}
             <span style={{ color:WHITE, fontWeight:500 }}>34.5% of its clicks</span> once an
             AI Overview appeared above it. You did not lose the ranking. You lost the click
             that used to come with it.
+          </p>
+          <p style={{ ...P, fontSize:'0.9rem', color:MUTED }}>
+            Both studies measured US search results, because that is where this has been
+            studied properly so far. AI Overviews are the same Google product in India, and
+            we have not seen an equivalent Indian dataset — which is part of why the free
+            check runs your own category rather than quoting someone else&apos;s numbers
+            back at you.
           </p>
           <p style={P}>
             Meanwhile a growing share of buyers skip search altogether and ask ChatGPT,
