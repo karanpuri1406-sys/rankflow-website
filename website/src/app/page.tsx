@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowRight, ChevronDown, Menu, X, MapPin, Search,
+  ArrowRight, ChevronDown, Menu, X, Search, Bot,
   CheckCircle2, XCircle, Shield, Eye, MessageCircle,
-  Phone, AlertCircle, Quote, Camera, Star, FileText,
+  Phone, AlertCircle, Quote, MapPin, FileText, Network,
 } from 'lucide-react';
 import { CONTACT, waLink, formEndpoint } from '@/config';
 
@@ -24,10 +24,9 @@ const SYNE    = "'Syne', sans-serif";
 const SANS    = "'DM Sans', sans-serif";
 const MONO    = "'DM Mono', monospace";
 
-const WRAP = { maxWidth:'1160px', margin:'0 auto', padding:'0 24px' } as const;
-const NARROW = { maxWidth:'760px', margin:'0 auto', padding:'0 24px' } as const;
+const WRAP   = { maxWidth:'1160px', margin:'0 auto', padding:'0 24px' } as const;
+const NARROW = { maxWidth:'760px',  margin:'0 auto', padding:'0 24px' } as const;
 
-/* Shared type styles — keeps rhythm consistent down a long page */
 const H2 = {
   fontFamily:SYNE, fontWeight:800,
   fontSize:'clamp(1.6rem, 3.2vw, 2.5rem)',
@@ -52,7 +51,7 @@ const rise = {
 };
 
 /* ──────────────────────────────────────────────
-   LOGO
+   LOGO + FLOAT
    ────────────────────────────────────────────── */
 function Logo() {
   return (
@@ -102,9 +101,9 @@ function Nav() {
   }, []);
 
   const links = [
-    { label:'The problem', href:'#problem' },
+    { label:'What changed', href:'#problem' },
     { label:'How it works', href:'#how'     },
-    { label:'What you get', href:'#offer'   },
+    { label:'Pricing',      href:'#offer'   },
     { label:'Questions',    href:'#faq'     },
   ];
 
@@ -156,7 +155,7 @@ function Nav() {
               (e.currentTarget as HTMLElement).style.transform = '';
               (e.currentTarget as HTMLElement).style.boxShadow = '';
             }}>
-            Free check <ArrowRight size={15}/>
+            Free AI check <ArrowRight size={15}/>
           </a>
         </div>
         <button className="md:hidden" aria-label="Toggle menu"
@@ -188,7 +187,7 @@ function Nav() {
               <a href="#check" onClick={() => setOpen(false)}
                 style={{ marginTop:'8px', background:CYAN, color:BG, padding:'13px',
                   textAlign:'center', borderRadius:'8px', fontFamily:SANS, fontWeight:700, textDecoration:'none' }}>
-                Get a free check
+                Get a free AI check
               </a>
             </div>
           </motion.div>
@@ -200,11 +199,9 @@ function Nav() {
 
 /* ──────────────────────────────────────────────
    A1 · THE LEAD
-   Job: stop the scroll. Name the pain, not the offer.
    ────────────────────────────────────────────── */
 function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
@@ -236,15 +233,12 @@ function Hero() {
             background:CYAN, display:'block', flexShrink:0 }}/>
           <span style={{ fontFamily:MONO, fontSize:'0.68rem', letterSpacing:'0.22em',
             textTransform:'uppercase', color:CYAN }}>
-            For practices in Chandigarh · Mohali · Panchkula
+            AI Search Optimisation · Working with businesses across India
           </span>
         </motion.div>
 
-        <div style={{ marginBottom:'26px', maxWidth:'980px' }}>
-          {[
-            'Someone searched for',
-            'your service this week.',
-          ].map((text, i) => (
+        <div style={{ marginBottom:'26px', maxWidth:'1000px' }}>
+          {['AI is answering', 'your customer’s question.'].map((text, i) => (
             <div key={text} style={{ overflow:'hidden' }}>
               <motion.span
                 initial={{ y:90, opacity:0 }} animate={{ y:0, opacity:1 }}
@@ -263,18 +257,19 @@ function Hero() {
               style={{ fontFamily:SYNE, fontWeight:800,
                 fontSize:'clamp(2.1rem, 4.8vw, 4.1rem)', lineHeight:1.06,
                 color:CYAN, textShadow:'0 2px 24px rgba(0,0,0,0.75)', display:'block' }}>
-              They found someone else.
+              It isn&apos;t naming you.
             </motion.span>
           </div>
         </div>
 
         <motion.p initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.78 }}
           style={{ ...P, fontSize:'clamp(1rem, 1.7vw, 1.16rem)', color:'#E2E8F0',
-            maxWidth:'620px', marginBottom:'38px', textShadow:'0 1px 14px rgba(0,0,0,0.6)' }}>
-          Most established practices in the Tricity are invisible the moment someone
-          searches instead of asks. We fix that, starting with your Google listing —
-          <span style={{ color:WHITE, fontWeight:500 }}> ₹5,000, once, and you see the
-          difference inside 30 days.</span>
+            maxWidth:'640px', marginBottom:'38px', textShadow:'0 1px 14px rgba(0,0,0,0.6)' }}>
+          When someone asks ChatGPT, Perplexity or Google&apos;s AI for a recommendation in
+          your category, a handful of companies get named. We do the work that decides
+          whether you are one of them —{' '}
+          <span style={{ color:WHITE, fontWeight:500 }}>and we&apos;ll show you where you
+          stand today, free.</span>
         </motion.p>
 
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.92 }}
@@ -292,7 +287,7 @@ function Hero() {
               (e.currentTarget as HTMLElement).style.transform = '';
               (e.currentTarget as HTMLElement).style.boxShadow = '';
             }}>
-            Show me what Google shows <ArrowRight size={16}/>
+            See if AI mentions you <ArrowRight size={16}/>
           </a>
           <a href="#problem"
             style={{ display:'inline-flex', alignItems:'center', gap:'8px',
@@ -300,14 +295,14 @@ function Hero() {
               border:'1px solid rgba(255,255,255,0.24)', color:WHITE,
               background:'rgba(255,255,255,0.07)',
               fontFamily:SANS, fontWeight:500, fontSize:'0.96rem', textDecoration:'none' }}>
-            Read on <ChevronDown size={16}/>
+            What changed <ChevronDown size={16}/>
           </a>
         </motion.div>
 
         <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:1.05 }}
           style={{ display:'flex', flexWrap:'wrap', alignItems:'center', gap:'12px 26px',
-            borderTop:'1px solid rgba(255,255,255,0.12)', paddingTop:'26px', maxWidth:'820px' }}>
-          {['Free check, no call required','Prices published below','Nothing locked in'].map((t,i) => (
+            borderTop:'1px solid rgba(255,255,255,0.12)', paddingTop:'26px', maxWidth:'860px' }}>
+          {['Free check, no call required','Prices published below','Month to month, nothing locked in'].map((t,i) => (
             <div key={i} style={{ display:'flex', alignItems:'center', gap:'8px' }}>
               <CheckCircle2 size={14} color={CYAN} strokeWidth={2.2} style={{ flexShrink:0 }}/>
               <span style={{ fontFamily:SANS, fontWeight:500, fontSize:'0.85rem', color:'#E2E8F0' }}>{t}</span>
@@ -321,52 +316,50 @@ function Hero() {
 
 /* ──────────────────────────────────────────────
    A2 · THE PROBLEM
-   Job: make the reader feel seen. Ends on the insight.
    ────────────────────────────────────────────── */
 function Problem() {
   return (
     <section id="problem" style={{ background:BG_ALT, padding:'110px 0', borderTop:`1px solid ${BORDER}` }}>
       <div style={NARROW}>
         <motion.div {...rise}>
-          <span style={EYEBROW}>Why this happens</span>
+          <span style={EYEBROW}>What changed</span>
           <h2 style={H2}>
-            Your practice runs on referrals.{' '}
-            <span style={{ color:CYAN }}>Until it stops.</span>
+            Your rankings held.{' '}
+            <span style={{ color:CYAN }}>Your clicks didn&apos;t.</span>
           </h2>
         </motion.div>
 
         <motion.div {...rise} style={{ marginTop:'30px', display:'flex', flexDirection:'column', gap:'22px' }}>
           <p style={P}>
-            You built the practice the honest way. Good work, word of mouth, one client
-            telling another. For years that was enough — and there is a real pride in
-            that, because it means the work speaks.
+            Something odd has been happening in analytics. Positions look roughly the same.
+            Impressions may even be up. But the clicks are thinner, the enquiries are fewer,
+            and nobody can quite explain where the traffic went.
           </p>
           <p style={P}>
-            Then the curve flattens. Not dramatically. The phone still rings, but it rings
-            with the same names, from the same circles. New enquiries arrive in months when
-            someone happens to mention you. You notice a newer practice down the road
-            filling up faster, and you know their work is not better than yours.
+            It went to the answer. Google now writes a summary at the top of the results and
+            most people never scroll past it. Meanwhile a growing share of buyers skip search
+            altogether and ask ChatGPT, Perplexity or Gemini directly:{' '}
+            <span style={{ color:'#E2E8F0' }}>&ldquo;who are the best companies for this in
+            India?&rdquo;</span> They get three or four names and a short reason for each.
+            The rest of the industry does not exist in that conversation.
           </p>
           <p style={P}>
-            Maybe you tried something. A cousin&apos;s friend built a website in 2019 that
-            nobody has touched since. Or you paid an agency ₹20,000 a month and received
-            reports full of impressions and keyword positions, none of which ever turned
-            into a person walking through the door. After six months you stopped, and the
-            experience taught you that this whole thing is noise.
+            If your agency is still reporting keyword positions, they are measuring a race
+            that fewer people are watching. Ranking on page one matters less every quarter
+            if the answer arrives before anyone reaches page one.
           </p>
         </motion.div>
 
         <motion.div {...rise}
           style={{ marginTop:'40px', background:BG, border:`1px solid rgba(251,191,36,0.28)`,
             borderLeft:`3px solid ${AMBER}`, borderRadius:'12px', padding:'30px 30px 30px 32px' }}>
-          <span style={{ ...EYEBROW, color:AMBER, marginBottom:'12px' }}>Here is what actually went wrong</span>
+          <span style={{ ...EYEBROW, color:AMBER, marginBottom:'12px' }}>The part that catches people out</span>
           <p style={{ ...P, margin:0, color:'#E2E8F0' }}>
-            None of it failed because marketing doesn&apos;t work for practices like yours.
-            It failed because the one place people actually look for you — the map that
-            appears when someone types your service and your city into a phone — was never
-            set up. No photos. Wrong hours. Missing services. Sometimes not even claimed.
-            <span style={{ color:WHITE, fontWeight:500 }}> Everything else was built on top
-            of a foundation that was never laid.</span>
+            Search engines rank pages. AI engines{' '}
+            <span style={{ color:WHITE, fontWeight:500 }}>cite sources</span>. Those are not
+            the same job. A page can rank perfectly well and still be unusable to a model
+            that needs a clear, attributable, well-structured statement it can quote with
+            confidence. Most sites were never built to be quoted — so they aren&apos;t.
           </p>
         </motion.div>
       </div>
@@ -376,37 +369,35 @@ function Problem() {
 
 /* ──────────────────────────────────────────────
    A3 · THE TURNING POINT
-   Job: hope, not promise. The referral reframe lives here.
    ────────────────────────────────────────────── */
 function Turning() {
   return (
     <section style={{ background:BG, padding:'110px 0' }}>
       <div style={NARROW}>
         <motion.div {...rise}>
-          <span style={EYEBROW}>The part most practices miss</span>
+          <span style={EYEBROW}>Why this is good news</span>
           <h2 style={H2}>
-            Every referral you get{' '}
-            <span style={{ color:CYAN }}>googles you first.</span>
+            Nobody has a ten-year head start{' '}
+            <span style={{ color:CYAN }}>in a two-year-old game.</span>
           </h2>
         </motion.div>
 
         <motion.div {...rise} style={{ marginTop:'30px', display:'flex', flexDirection:'column', gap:'22px' }}>
           <p style={P}>
-            Think about the last time someone recommended a doctor, a lawyer or an
-            architect to you. You did not simply call the number. You typed the name into
-            your phone first — and what came back decided whether you called at all.
+            Classic SEO rewards age and accumulated authority. A competitor who started in
+            2014 with thousands of backlinks is genuinely hard to displace, and no amount of
+            effort compresses that gap quickly.
           </p>
           <p style={P}>
-            Your referrals do exactly the same thing. Someone vouches for you, the person
-            searches, and if what appears is a blank listing with no photos and no reviews,
-            hesitation creeps in. They do not tell you this. They just take longer to call,
-            or they never do.
+            AI citation does not work that way. Models favour sources that answer a specific
+            question cleanly, state facts in an attributable form, and are consistent about
+            what the company actually is and does. Those are things a well-run business can
+            fix in a quarter, regardless of when it was founded.
           </p>
           <p style={{ ...P, color:'#E2E8F0' }}>
-            So this is not about replacing word of mouth with advertising.{' '}
-            <span style={{ color:WHITE, fontWeight:500 }}>It is about not leaking the word
-            of mouth you have already earned</span> — and then being visible to the people
-            who never got a referral in the first place.
+            <span style={{ color:WHITE, fontWeight:500 }}>This is the rarest thing in
+            search: a reset.</span> The incumbents in your category are mostly not working on
+            this yet. The window closes as they notice.
           </p>
         </motion.div>
 
@@ -414,10 +405,10 @@ function Turning() {
           gridTemplateColumns:'repeat(auto-fit, minmax(250px, 1fr))', gap:'1px',
           background:BORDER, borderRadius:'14px', overflow:'hidden' }}>
           {[
-            { icon:XCircle, c:'#F87171', t:'What people find today',
-              l:['An unclaimed or bare listing','No photos of the practice','Hours that may be wrong','A competitor above you'] },
-            { icon:CheckCircle2, c:'#4ADE80', t:'What they could find',
-              l:['A complete, verified profile','Real photos of your space','Correct hours and services','Reviews from actual clients'] },
+            { icon:XCircle, c:'#F87171', t:'What most sites look like to AI',
+              l:['Claims with no source or date','Key facts buried inside long prose','Inconsistent description of the company','No structured data to read'] },
+            { icon:CheckCircle2, c:'#4ADE80', t:'What gets cited instead',
+              l:['Direct answers, stated plainly','Facts attributed and dated','One consistent entity across the web','Machine-readable structure throughout'] },
           ].map((col, i) => (
             <div key={i} style={{ background:BG_ALT, padding:'30px 28px' }}>
               <div style={{ display:'flex', alignItems:'center', gap:'9px', marginBottom:'18px' }}>
@@ -442,34 +433,33 @@ function Turning() {
 
 /* ──────────────────────────────────────────────
    A4 · THE MECHANISM
-   Job: explain the approach, not the deliverables.
    ────────────────────────────────────────────── */
 function Mechanism() {
   const steps = [
-    { n:'01', Icon:Search, t:'We look you up the way a client would',
-      d:'Your service, your sector, on a phone. We record what appears, which competitor sits above you, and what your listing is missing. You get this as a one-page breakdown whether or not you hire us.' },
-    { n:'02', Icon:MapPin, t:'We rebuild the listing properly',
-      d:'Claimed and verified, correct categories, every service listed, real photos, accurate hours, and the questions clients actually ask answered on the profile itself.' },
-    { n:'03', Icon:Star, t:'We turn your existing clients into reviews',
-      d:'You already have happy clients. Most practices have never asked. We set up a simple request that runs after each visit, so reviews accumulate without you chasing anyone.' },
-    { n:'04', Icon:FileText, t:'Day 30, you see the numbers',
-      d:'Listing views, calls, direction requests and search position — before and after, from your own Google account, not ours. If it did not move, we tell you that plainly.' },
+    { n:'01', Icon:Bot, t:'We ask the AI engines about you',
+      d:'The real questions your buyers ask, run through ChatGPT, Perplexity and Google’s AI answers. We record who gets named, who gets cited, and where you appear — if you appear at all.' },
+    { n:'02', Icon:Network, t:'We make your business legible to a model',
+      d:'One consistent description of what you are, structured data throughout, entity clarity across the sites AI engines already trust. This is the groundwork that decides whether a model can use you at all.' },
+    { n:'03', Icon:FileText, t:'We write pages built to be quoted',
+      d:'Direct answers near the top, facts stated in an attributable form, sources and dates on the claims. Written for people first — but structured so a model can lift a passage without ambiguity.' },
+    { n:'04', Icon:Search, t:'We keep the classic foundations working',
+      d:'Technical SEO, site speed, internal linking, and Google Business Profile where location matters. AI citation sits on top of ordinary SEO health; it does not replace it.' },
   ];
 
   return (
     <section id="how" style={{ background:BG_ALT, padding:'110px 0' }}>
       <div style={WRAP}>
-        <motion.div {...rise} style={{ maxWidth:'700px', marginBottom:'54px' }}>
+        <motion.div {...rise} style={{ maxWidth:'720px', marginBottom:'54px' }}>
           <span style={EYEBROW}>How it works</span>
           <h2 style={H2}>
-            The fastest thing to fix{' '}
-            <span style={{ color:CYAN }}>is also the cheapest.</span>
+            Optimised to be cited,{' '}
+            <span style={{ color:CYAN }}>not just ranked.</span>
           </h2>
           <p style={{ ...P, marginTop:'18px' }}>
-            Search engine work on a website takes months. A Google Business Profile moves in
-            weeks — it is the map result, the one that shows up above every website link when
-            someone searches locally on a phone. For a practice that serves one city, it is
-            the single highest-return thing you can fix, and almost nobody has done it properly.
+            There is no trick here and nothing proprietary to hide behind. AI engines cite
+            sources they can parse, verify and attribute. Most of this work is making a
+            business unambiguous to a machine — and it happens to make the site clearer for
+            people at the same time.
           </p>
         </motion.div>
 
@@ -493,6 +483,20 @@ function Mechanism() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div {...rise}
+          style={{ marginTop:'22px', display:'flex', alignItems:'flex-start', gap:'13px',
+            background:BG, border:`1px solid ${BORDER}`, borderRadius:'13px', padding:'24px 26px',
+            maxWidth:'820px' }}>
+          <MapPin size={19} color={CYAN} strokeWidth={1.7} style={{ flexShrink:0, marginTop:'3px' }}/>
+          <p style={{ ...P, fontSize:'0.92rem', margin:0 }}>
+            <span style={{ color:WHITE, fontWeight:500 }}>Serving a city rather than a country?</span>{' '}
+            Local SEO and Google Business Profile work is included in every plan, not sold
+            separately. AI assistants increasingly answer &ldquo;near me&rdquo; questions
+            from exactly the same local signals — so the two jobs overlap more than most
+            agencies admit.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
@@ -500,8 +504,6 @@ function Mechanism() {
 
 /* ──────────────────────────────────────────────
    A5 · PROOF
-   Job: evidence. We have no client testimonials yet, so this
-   section is built on verifiable work and on saying so plainly.
    ────────────────────────────────────────────── */
 function Proof() {
   const work = [
@@ -534,7 +536,6 @@ function Proof() {
           </h2>
         </motion.div>
 
-        {/* Honesty block — the weakest dimension, addressed head on */}
         <motion.div {...rise}
           style={{ maxWidth:'720px', marginBottom:'46px', display:'flex', gap:'14px',
             background:BG_ALT, border:`1px solid ${BORDER}`, borderRadius:'12px', padding:'24px 26px' }}>
@@ -542,8 +543,8 @@ function Proof() {
           <p style={{ ...P, fontSize:'0.96rem', margin:0 }}>
             You will not find star ratings, client counts or glowing quotes on this page.
             Rankflow launched in 2026 and has not earned them yet — so we have not invented
-            any. What we can show you is the work behind it, and a first month structured so
-            that you are the one holding the evidence, not us.
+            any. What we can show you is the work behind it, and a first engagement
+            structured so that you hold the evidence, not us.
           </p>
         </motion.div>
 
@@ -570,9 +571,10 @@ function Proof() {
           ))}
         </div>
 
-        <motion.p {...rise} style={{ ...P, fontSize:'0.9rem', color:MUTED, marginTop:'26px', maxWidth:'660px' }}>
-          Rankflow was founded by Karan Puri. Client names available on request — ask, and
-          we will walk you through any of this in detail.
+        <motion.p {...rise} style={{ ...P, fontSize:'0.9rem', color:MUTED, marginTop:'26px', maxWidth:'680px' }}>
+          Rankflow was founded by Karan Puri and works remotely with businesses across
+          India. Client names available on request — ask, and we will walk you through
+          any of this in detail.
         </motion.p>
       </div>
     </section>
@@ -581,35 +583,30 @@ function Proof() {
 
 /* ──────────────────────────────────────────────
    A6 · THE OFFER
-   Job: make ₹5,000 feel small against what arrives.
    ────────────────────────────────────────────── */
 function Offer() {
-  const includes = [
-    { Icon:MapPin,  t:'Your listing claimed and verified',       o:'The profile becomes yours to control, in your name — not ours.' },
-    { Icon:Search,  t:'Categories and services set up properly', o:'You start appearing for the searches you actually want, not just your practice name.' },
-    { Icon:Camera,  t:'Up to 20 photos added and optimised',     o:'Listings with photos get contacted noticeably more often than listings without.' },
-    { Icon:FileText,t:'10 local directory citations',            o:'Consistent details across the web, which is one of the things Google weighs for local ranking.' },
-    { Icon:Star,    t:'A review system you keep using',          o:'Reviews keep arriving after we are done, without you having to ask anyone face to face.' },
-    { Icon:Eye,     t:'A before-and-after report on day 30',     o:'You see exactly what moved, measured from your own Google account.' },
+  const audit = [
+    { Icon:Bot,     t:'Your category, asked across three AI engines', o:'ChatGPT, Perplexity and Google’s AI answers — the actual questions your buyers ask, not invented ones.' },
+    { Icon:Eye,     t:'Who gets named instead of you',                o:'The competitors AI currently recommends in your space, and the source it pulled each one from.' },
+    { Icon:Network, t:'Why they are cited and you are not',           o:'The specific structural gaps on your site that make you unusable to a model.' },
+    { Icon:FileText,t:'A prioritised fix list',                       o:'What to change, in order of impact. Yours to keep and hand to any agency, including one that is not us.' },
   ];
 
   return (
     <section id="offer" style={{ background:BG_ALT, padding:'110px 0' }}>
       <div style={WRAP}>
         <motion.div {...rise} style={{ maxWidth:'720px', marginBottom:'46px' }}>
-          <span style={EYEBROW}>What you get</span>
-          <h2 style={H2}>
-            The Google Profile Rescue
-          </h2>
+          <span style={EYEBROW}>Where to start</span>
+          <h2 style={H2}>The AI Visibility Audit</h2>
           <p style={{ ...P, marginTop:'18px' }}>
-            One fixed price, done once, no retainer attached. It exists because the fastest
-            way for us to prove we are worth paying is to fix the thing that produces a
-            result inside a month — and let you decide afterwards.
+            Before anyone commits to a retainer, it is worth knowing whether AI engines
+            mention you at all. This is a one-off piece of work with a fixed price and no
+            obligation attached to it.
           </p>
         </motion.div>
 
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(320px, 1fr))', gap:'16px', marginBottom:'44px' }}>
-          {includes.map((x, i) => (
+          {audit.map((x, i) => (
             <motion.div key={i} {...rise} transition={{ ...rise.transition, delay:i*0.06 }}
               style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:'13px', padding:'26px 24px' }}>
               <div style={{ display:'flex', alignItems:'flex-start', gap:'13px' }}>
@@ -629,18 +626,16 @@ function Offer() {
           ))}
         </div>
 
-        {/* Price — framed before it is announced */}
         <motion.div {...rise}
           style={{ background:BG, border:`1px solid ${CYAN}38`, borderRadius:'18px',
             padding:'44px 36px', textAlign:'center', maxWidth:'720px', margin:'0 auto',
             boxShadow:'0 0 70px rgba(34,211,238,0.07)' }}>
-          <p style={{ ...P, fontSize:'0.96rem', maxWidth:'520px', margin:'0 auto 26px' }}>
-            One new client at a practice like yours is worth somewhere between ₹15,000 and
-            well over a lakh across the relationship. This costs less than a third of the
-            lower end of that, once.
+          <p style={{ ...P, fontSize:'0.96rem', maxWidth:'540px', margin:'0 auto 26px' }}>
+            Most agencies will not quote you without a discovery call and a proposal.
+            This is a fixed price for a finished document, delivered in a week.
           </p>
           <div style={{ display:'flex', alignItems:'baseline', justifyContent:'center', gap:'10px', marginBottom:'8px' }}>
-            <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'3.1rem', color:CYAN, lineHeight:1 }}>₹5,000</span>
+            <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'3.1rem', color:CYAN, lineHeight:1 }}>₹9,000</span>
             <span style={{ fontFamily:SANS, fontSize:'0.92rem', color:MUTED }}>one time</span>
           </div>
           <p style={{ fontFamily:SANS, fontSize:'0.86rem', color:MUTED, marginBottom:'28px' }}>
@@ -661,36 +656,50 @@ function Offer() {
             }}>
             Start with the free check <ArrowRight size={17}/>
           </a>
-          <p style={{ fontFamily:SANS, fontSize:'0.8rem', color:MUTED, marginTop:'16px', margin:'16px 0 0' }}>
-            The check comes first and costs nothing. You only pay if you want the work done.
+          <p style={{ fontFamily:SANS, fontSize:'0.8rem', color:MUTED, margin:'16px 0 0' }}>
+            The free check comes first and shows you one question&apos;s worth of results.
+            You only pay if you want the full audit.
           </p>
         </motion.div>
 
-        {/* Retainers, deliberately secondary */}
-        <motion.div {...rise} style={{ maxWidth:'720px', margin:'46px auto 0' }}>
-          <p style={{ ...P, fontSize:'0.92rem', color:MUTED, textAlign:'center', marginBottom:'18px' }}>
-            If it works and you want it maintained, there are two monthly options —
-            no obligation to take either.
+        {/* Retainers */}
+        <motion.div {...rise} style={{ maxWidth:'860px', margin:'54px auto 0' }}>
+          <p style={{ ...P, fontSize:'0.94rem', color:MUTED, textAlign:'center', marginBottom:'20px' }}>
+            If you want the work done rather than just diagnosed, these are the monthly
+            options. The audit fee is credited against your first month.
           </p>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(240px, 1fr))', gap:'14px' }}>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', gap:'16px' }}>
             {[
-              { n:'Local Starter', p:'₹12,000', d:'Profile managed monthly, local SEO on your service pages, 2 articles, reviews, monthly report.' },
-              { n:'Growth', p:'₹22,000', d:'Everything above plus full technical SEO, 4 articles, competitor tracking, fortnightly calls.' },
+              { n:'Foundation', p:'₹18,000', d:'Entity and structured-data groundwork, technical SEO, Google Business Profile where relevant, 2 citable articles a month, monthly AI visibility tracking.', h:false },
+              { n:'Growth', p:'₹35,000', d:'Everything in Foundation plus 4 articles a month, competitor citation tracking, landing pages, and fortnightly calls.', h:true },
+              { n:'Scale', p:'₹65,000', d:'Everything in Growth plus 8 articles, digital PR aimed at the sources AI engines trust, and weekly reporting.', h:false },
             ].map((t,i) => (
-              <div key={i} style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:'13px', padding:'24px' }}>
+              <div key={i} style={{ background:BG, position:'relative',
+                border: t.h ? `1px solid ${CYAN}40` : `1px solid ${BORDER}`,
+                borderRadius:'14px', padding:'28px 24px',
+                boxShadow: t.h ? '0 0 50px rgba(34,211,238,0.07)' : 'none' }}>
+                {t.h && (
+                  <div style={{ position:'absolute', top:'-12px', left:'50%', transform:'translateX(-50%)' }}>
+                    <span style={{ background:CYAN, color:BG, fontFamily:SYNE, fontWeight:700,
+                      fontSize:'0.66rem', padding:'4px 14px', borderRadius:'20px', whiteSpace:'nowrap' }}>
+                      Most chosen
+                    </span>
+                  </div>
+                )}
                 <div style={{ fontFamily:MONO, fontSize:'0.62rem', letterSpacing:'0.18em',
-                  textTransform:'uppercase', color:MUTED, marginBottom:'9px' }}>{t.n}</div>
-                <div style={{ display:'flex', alignItems:'baseline', gap:'5px', marginBottom:'10px' }}>
-                  <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'1.5rem', color:WHITE }}>{t.p}</span>
+                  textTransform:'uppercase', color: t.h ? CYAN : MUTED, marginBottom:'9px' }}>{t.n}</div>
+                <div style={{ display:'flex', alignItems:'baseline', gap:'5px', marginBottom:'12px' }}>
+                  <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'1.7rem',
+                    color: t.h ? CYAN : WHITE }}>{t.p}</span>
                   <span style={{ fontFamily:SANS, fontSize:'0.78rem', color:MUTED }}>/month</span>
                 </div>
-                <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'0.83rem', color:BODY, lineHeight:1.7, margin:0 }}>{t.d}</p>
+                <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'0.84rem', color:BODY, lineHeight:1.72, margin:0 }}>{t.d}</p>
               </div>
             ))}
           </div>
-          <p style={{ fontFamily:SANS, fontSize:'0.8rem', color:MUTED, textAlign:'center', marginTop:'16px' }}>
-            Month to month. Cancel any time. Ad spend, if you ever run ads, is paid by you
-            directly to Google or Meta — we never touch it.
+          <p style={{ fontFamily:SANS, fontSize:'0.8rem', color:MUTED, textAlign:'center', marginTop:'18px' }}>
+            Month to month, cancel any time, every account in your name. Ad spend, if you
+            ever run ads, is paid by you directly to the platform — we never touch it.
           </p>
         </motion.div>
       </div>
@@ -704,43 +713,43 @@ function Offer() {
 function Objections() {
   const loud = [
     {
-      q:'“We get our clients by referral. This is for businesses that can’t.”',
-      a:'That is true of the best practices, and it is exactly why this matters. The person your client recommends you to will still search your name before calling — almost everyone does now. If nothing credible comes back, the referral quietly cools. This does not replace word of mouth. It stops the word of mouth you have already earned from leaking.',
+      q:'“Is this real, or is it SEO people rebranding to sound current?”',
+      a:'A fair suspicion, and the industry has earned it. Here is the test: the free check shows you actual AI answers for your category, with names in them. Either your competitors are being recommended and you are not, or they aren’t and you can ignore all of this. We would rather you looked at the evidence than took our word for it.',
     },
     {
-      q:'“You have no reviews and no case studies. Why would I take the risk?”',
-      a:'A fair question, and we are not going to pretend otherwise. That is why the first step is free, why the first paid step is ₹5,000 rather than a retainer, why there is no contract, and why everything is registered in your name so you lose nothing if you walk away. We have structured this so the risk of being wrong about us is small and entirely recoverable.',
+      q:'“Nobody in my industry is asking ChatGPT for recommendations yet.”',
+      a:'In some categories that is still true, and where it is true we will tell you so and point you at ordinary SEO instead. But the free check answers this for your specific category in a couple of days rather than leaving it to opinion. If the answer is no, that is a useful thing to know cheaply.',
     },
     {
-      q:'“I paid an agency before and got nothing but reports.”',
-      a:'We have seen those reports. Impressions, keyword positions, traffic that never becomes a phone call. The day-30 report here covers four things only: listing views, calls, direction requests and search position — pulled from your own Google account, which you own and can check yourself. If those numbers have not moved, we will say so rather than dress it up.',
+      q:'“We already have an SEO agency.”',
+      a:'Then keep them. This is a different job and it is often complementary — most of what we do is structural and does not conflict with a content or link programme. If it turns out your existing agency already covers this, we will say so rather than sell you a duplicate.',
     },
     {
-      q:'“I don’t have time for this.”',
-      a:'You will spend about twenty minutes total. We need access to your Google listing, a few photos of the practice if you have them, and a short conversation about which services matter most. Everything else happens without you.',
+      q:'“You have no reviews and no case studies in this.”',
+      a:'True, and we are not going to dress it up. Rankflow launched in 2026. What we can offer instead is a ₹9,000 first step rather than a retainer, no contract, everything registered in your name, and a refund term below that puts the risk on us rather than you.',
     },
   ];
 
   const faq = [
-    { q:'What if I don’t have a website?',
-      a:'That is common and not a problem. A Google listing works entirely on its own and is often the better place to start. If you decide you want a website later, we can talk about it then.' },
-    { q:'How long until I see something?',
-      a:'The listing work is completed in the first week or two. Movement in views and calls usually appears within two to four weeks. Reviews build more gradually, over months.' },
-    { q:'Who owns the accounts?',
-      a:'You do. Your Google Business Profile, your website, your ad accounts — all registered in your name and your email. If we part ways, you keep everything and nothing needs migrating.' },
-    { q:'Do I have to sign up for a monthly plan?',
-      a:'No. The ₹5,000 Rescue is a one-time piece of work that ends when it is done. The monthly options exist if you want them and are ignored entirely if you don’t.' },
-    { q:'Can you guarantee I’ll rank first?',
-      a:'No, and you should treat anyone who does with suspicion. Nobody controls Google’s rankings. What we can do is make sure the things that are within your control are all correct, which is more than most practices in the Tricity have done.' },
-    { q:'Which practices is this not right for?',
-      a:'Anyone needing enquiries this week — local search does not move that fast. Anyone with no capacity to take on new clients. And any business too small to clear ₹5,000 comfortably, in which case we would rather point you at doing the basics yourself for free.' },
+    { q:'Do you work outside Chandigarh?',
+      a:'Yes. This work is done remotely and we work with businesses anywhere in India. Where a client needs local visibility in their own city, Google Business Profile work is included in the plan.' },
+    { q:'How long before anything changes?',
+      a:'Structural fixes land in the first few weeks. AI citation moves more slowly than rankings did, typically over one to three months, because models refresh on their own schedule. Anyone promising faster is guessing.' },
+    { q:'Can you guarantee ChatGPT will recommend us?',
+      a:'No. Nobody controls what a model outputs, and any agency claiming otherwise is selling something they cannot deliver. What we control is whether your business is findable, parseable and attributable — which is the part that is actually within reach.' },
+    { q:'What if we have no website worth optimising?',
+      a:'Then say so on the check and we will tell you honestly whether to fix the site first. Sometimes the right advice is to spend the money elsewhere before spending it here.' },
+    { q:'Who owns the accounts and the work?',
+      a:'You do. Analytics, Search Console, Google Business Profile, the content — all in your name, and yours to take with you if you leave.' },
+    { q:'Is there a minimum commitment?',
+      a:'No. The audit is one-off. The monthly plans are month to month and can be cancelled whenever you like.' },
   ];
 
   return (
     <section id="faq" style={{ background:BG, padding:'110px 0' }}>
       <div style={NARROW}>
         <motion.div {...rise} style={{ marginBottom:'44px' }}>
-          <span style={EYEBROW}>What you’re probably thinking</span>
+          <span style={EYEBROW}>What you&apos;re probably thinking</span>
           <h2 style={H2}>
             The objections{' '}
             <span style={{ color:CYAN }}>worth taking seriously.</span>
@@ -750,7 +759,7 @@ function Objections() {
         <div style={{ display:'flex', flexDirection:'column', gap:'16px', marginBottom:'58px' }}>
           {loud.map((o, i) => (
             <motion.div key={i} {...rise} transition={{ ...rise.transition, delay:i*0.07 }}
-              style={{ background:BG_ALT, border:`1px solid ${BORDER}`, borderRadius:'13px', padding:'28px 28px' }}>
+              style={{ background:BG_ALT, border:`1px solid ${BORDER}`, borderRadius:'13px', padding:'28px' }}>
               <h3 style={{ fontFamily:SYNE, fontWeight:700, fontSize:'1.03rem',
                 color:WHITE, marginBottom:'12px', lineHeight:1.5 }}>{o.q}</h3>
               <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'0.93rem',
@@ -797,26 +806,23 @@ function Guarantee() {
               <Shield size={19} color="#4ADE80" strokeWidth={1.8}/>
             </div>
             <h2 style={{ ...H2, fontSize:'clamp(1.4rem, 2.6vw, 2rem)' }}>
-              The 30-day terms
+              Our terms on the audit
             </h2>
           </div>
           <div style={{ display:'flex', flexDirection:'column', gap:'18px' }}>
             <p style={{ ...P, margin:0 }}>
-              We complete the listing work, then leave it for thirty days and measure what
-              happened. On day 30 you get a before-and-after report drawn from your own
-              Google account.
+              The audit is a finished document, delivered within seven days, covering your
+              category across three AI engines with a prioritised list of what to fix.
             </p>
             <p style={{ ...P, margin:0, color:'#E2E8F0' }}>
-              <span style={{ color:WHITE, fontWeight:600 }}>If your listing views have not
-              increased over those thirty days, ask and we will refund the ₹5,000 in full.</span>{' '}
-              You keep the optimised profile, the photos, the citations and the review
-              system regardless — they are on your account and we would not take them back
-              even if we could.
+              <span style={{ color:WHITE, fontWeight:600 }}>Read it, and if it does not tell
+              you something you did not already know about your own visibility, ask and we
+              will refund the ₹9,000 in full.</span> You keep the document either way.
             </p>
             <p style={{ ...P, margin:0, fontSize:'0.94rem', color:MUTED }}>
-              We offer this because the work is straightforward and the outcome is
-              predictable when a listing starts from nothing. If we are wrong about your
-              situation, you should not be the one paying for it.
+              We can offer that because almost nobody has looked at their business this way
+              yet. If you are the exception, you should not be paying us to confirm what you
+              already knew.
             </p>
           </div>
         </motion.div>
@@ -875,23 +881,22 @@ function Close() {
         background:`linear-gradient(90deg, transparent, ${CYAN}45, transparent)` }}/>
 
       <div style={WRAP}>
-        {/* The final argument */}
-        <motion.div {...rise} style={{ maxWidth:'720px', margin:'0 auto 54px', textAlign:'center' }}>
+        <motion.div {...rise} style={{ maxWidth:'740px', margin:'0 auto 54px', textAlign:'center' }}>
           <span style={{ ...EYEBROW, textAlign:'center' }}>Start here</span>
           <h2 style={H2}>
-            Find out what a client sees{' '}
+            Find out what AI says about you{' '}
             <span style={{ color:CYAN }}>before you spend anything.</span>
           </h2>
           <p style={{ ...P, marginTop:'20px' }}>
-            Tell us your practice name and we will look you up the way a client would.
-            Within two working days you get a one-page breakdown: what your listing shows,
-            which competitor is appearing above you, and the three things to fix first.
-            It is free, there is no call, and it is yours to keep and act on yourself
-            if you would rather.
+            Tell us your company and what you do. We will run one real buying question for
+            your category through ChatGPT, Perplexity and Google&apos;s AI answers, and send
+            you what came back — who got named, who got cited, and whether you appeared.
+            Free, no call, and yours to act on however you like.
           </p>
           <p style={{ ...P, marginTop:'18px', color:'#E2E8F0' }}>
-            Nothing changes while you think about it, except that the practice down the
-            road keeps appearing where you don&apos;t.
+            Right now a model somewhere is answering that question for a buyer.{' '}
+            <span style={{ color:WHITE, fontWeight:500 }}>It is naming somebody. The only
+            question is who.</span>
           </p>
         </motion.div>
 
@@ -899,10 +904,10 @@ function Close() {
           <motion.div {...rise}>
             <div style={{ display:'flex', flexDirection:'column', gap:'13px', marginBottom:'30px' }}>
               {[
-                'What your Google listing shows right now',
-                'Which competitor appears above you, and why',
-                'Whether your details are correct and complete',
-                'The three fixes that matter most, in order',
+                'The AI answer for your category, verbatim',
+                'Which competitors are being named',
+                'Whether you appear anywhere in it',
+                'The first thing to fix if you don’t',
               ].map((item, i) => (
                 <div key={i} style={{ display:'flex', alignItems:'flex-start', gap:'12px' }}>
                   <CheckCircle2 size={16} color={CYAN} strokeWidth={2} style={{ marginTop:'2px', flexShrink:0 }}/>
@@ -962,7 +967,7 @@ function Close() {
                     Got it — thank you.
                   </h3>
                   <p style={{ ...P, fontSize:'0.92rem', margin:0 }}>
-                    Your check will be with you within two working days.
+                    Your AI check will be with you within two working days.
                     If it is urgent, WhatsApp is faster.
                   </p>
                 </motion.div>
@@ -988,24 +993,24 @@ function Close() {
                   <div>
                     <label htmlFor="business" style={{ fontFamily:MONO, fontSize:'0.6rem', color:MUTED,
                       letterSpacing:'0.18em', display:'block', textTransform:'uppercase', marginBottom:'8px' }}>
-                      Practice name and area
+                      Company and what you do
                     </label>
                     <input id="business" name="business" type="text" required
-                      placeholder="e.g. Sharma Dental, Sector 35"
+                      placeholder="e.g. Acme Legal, corporate law, Pune"
                       value={form.business}
                       onChange={e => setForm({ ...form, business:e.target.value })}
                       style={inputStyle} onFocus={focus} onBlur={blur}/>
                     <p style={{ fontFamily:SANS, fontSize:'0.73rem', color:MUTED, marginTop:'7px' }}>
-                      No website needed — that is often the thing we are fixing.
+                      Anywhere in India. The more specific your category, the sharper the check.
                     </p>
                   </div>
                   <div>
                     <label htmlFor="message" style={{ fontFamily:MONO, fontSize:'0.6rem', color:MUTED,
                       letterSpacing:'0.18em', display:'block', textTransform:'uppercase', marginBottom:'8px' }}>
-                      Anything we should know <span style={{ textTransform:'none' }}>(optional)</span>
+                      A question your buyers ask <span style={{ textTransform:'none' }}>(optional)</span>
                     </label>
                     <textarea id="message" name="message" rows={3}
-                      placeholder="More calls, more walk-ins, no idea where to start…"
+                      placeholder="e.g. “best corporate law firms in Pune for startups”"
                       value={form.message} onChange={e => setForm({ ...form, message:e.target.value })}
                       style={{ ...inputStyle, resize:'none' }} onFocus={focus} onBlur={blur}/>
                   </div>
@@ -1030,12 +1035,12 @@ function Close() {
                       fontFamily:SANS, fontWeight:700, fontSize:'0.95rem',
                       border:'none', cursor: status === 'sending' ? 'wait' : 'pointer',
                       opacity: status === 'sending' ? 0.7 : 1, transition:'all 0.25s' }}>
-                    {status === 'sending' ? 'Sending…' : 'Get my free check'}
+                    {status === 'sending' ? 'Sending…' : 'Get my free AI check'}
                     {status !== 'sending' && <ArrowRight size={16}/>}
                   </button>
                   <p style={{ fontFamily:SANS, fontSize:'0.77rem', color:MUTED,
                     textAlign:'center', margin:0, lineHeight:1.6 }}>
-                    We use your number to send the check and follow up once. No lists, no spam.
+                    We use your details to send the check and follow up once. No lists, no spam.
                   </p>
                 </form>
               )}
@@ -1045,10 +1050,10 @@ function Close() {
 
         <motion.p {...rise}
           style={{ ...P, fontSize:'0.88rem', color:MUTED, textAlign:'center',
-            maxWidth:'640px', margin:'40px auto 0' }}>
-          Rankflow is based in Chandigarh and works with practices across Mohali, Panchkula
-          and Zirakpur. If we are not the right fit for you, we will say so on the first call
-          rather than sell you something that will not work.
+            maxWidth:'660px', margin:'40px auto 0' }}>
+          Rankflow works remotely with businesses across India, from Chandigarh. If AI search
+          is not yet relevant to your category, we will tell you on the first reply rather
+          than sell you something that will not work.
         </motion.p>
       </div>
     </section>
@@ -1061,16 +1066,16 @@ function Close() {
 function Footer() {
   const cols = [
     { label:'The page', items:[
-      { t:'Why this happens', h:'#problem' },
-      { t:'How it works',     h:'#how'     },
-      { t:'What you get',     h:'#offer'   },
-      { t:'Questions',        h:'#faq'     },
+      { t:'What changed', h:'#problem' },
+      { t:'How it works', h:'#how'     },
+      { t:'Pricing',      h:'#offer'   },
+      { t:'Questions',    h:'#faq'     },
     ]},
     { label:'Get in touch', items:[
       { t:'WhatsApp', h:waLink() },
       ...(CONTACT.phoneE164 ? [{ t:CONTACT.phoneDisplay, h:`tel:${CONTACT.phoneE164}` }] : []),
       { t:CONTACT.email, h:`mailto:${CONTACT.email}` },
-      { t:'Free check',  h:'#check' },
+      { t:'Free AI check', h:'#check' },
     ]},
   ];
 
@@ -1082,10 +1087,11 @@ function Footer() {
           <div>
             <div style={{ marginBottom:'14px' }}><Logo/></div>
             <p style={{ fontFamily:SANS, fontWeight:300, fontSize:'0.86rem', color:MUTED,
-              lineHeight:1.75, maxWidth:'300px' }}>
-              Local search and Google Business Profile work for professional practices
-              across Chandigarh, Mohali and Panchkula. Published prices, no lock-in,
-              every account in your name.
+              lineHeight:1.75, maxWidth:'320px' }}>
+              AI search optimisation for businesses across India — making companies findable
+              and citable by ChatGPT, Perplexity and Google&apos;s AI answers. Local SEO
+              included where it matters. Published prices, no lock-in, every account in
+              your name.
             </p>
           </div>
           {cols.map(col => (
@@ -1111,7 +1117,7 @@ function Footer() {
         </div>
         <div style={{ borderTop:`1px solid ${BORDER}`, marginTop:'40px', paddingTop:'24px' }}>
           <p style={{ fontFamily:MONO, fontSize:'0.63rem', color:'#2D3748', letterSpacing:'0.1em', margin:0 }}>
-            © {new Date().getFullYear()} RANKFLOW · CHANDIGARH, INDIA
+            © {new Date().getFullYear()} RANKFLOW · INDIA
           </p>
         </div>
       </div>
@@ -1120,21 +1126,21 @@ function Footer() {
 }
 
 /* ──────────────────────────────────────────────
-   ROOT — Blueprint A, problem-first sequence
+   ROOT — Blueprint A, problem-first
    ────────────────────────────────────────────── */
 export default function Home() {
   return (
     <main>
       <Nav />
-      <Hero />        {/* A1 lead */}
-      <Problem />     {/* A2 problem + insight */}
-      <Turning />     {/* A3 turning point */}
-      <Mechanism />   {/* A4 mechanism */}
-      <Proof />       {/* A5 proof */}
-      <Offer />       {/* A6 offer */}
-      <Objections />  {/* A7 objections + FAQ */}
-      <Guarantee />   {/* A8 guarantee */}
-      <Close />       {/* A9 close + capture */}
+      <Hero />
+      <Problem />
+      <Turning />
+      <Mechanism />
+      <Proof />
+      <Offer />
+      <Objections />
+      <Guarantee />
+      <Close />
       <Footer />
       <WhatsAppFloat />
     </main>

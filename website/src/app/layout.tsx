@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 const TITLE =
-  "Rankflow — SEO & Digital Marketing for Chandigarh Professional Firms";
+  "Rankflow — AI Search Optimisation & SEO for Businesses Across India";
 const DESCRIPTION =
-  "Chandigarh-based digital marketing for consultancies, law firms, clinics and professional practices. SEO, Google Business Profile, content and ads — with every price published up front.";
+  "Get found and cited by ChatGPT, Perplexity and Google's AI answers. AI search optimisation, SEO and local visibility for businesses across India — with every price published up front.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -27,13 +27,14 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   keywords: [
+    "ai seo agency india",
+    "ai search optimisation",
+    "generative engine optimisation",
+    "chatgpt seo",
+    "perplexity seo",
+    "google ai overview optimisation",
+    "seo agency india",
     "seo agency chandigarh",
-    "seo company in chandigarh",
-    "digital marketing company in chandigarh",
-    "seo company in mohali",
-    "seo company in panchkula",
-    "google business profile chandigarh",
-    "digital marketing for small business",
   ],
   authors: [{ name: "Rankflow" }],
   creator: "Rankflow",
@@ -94,41 +95,37 @@ const schema = {
     postalCode: SITE.postalCode,
     addressCountry: "IN",
   },
-  areaServed: [
-    { "@type": "City", name: "Chandigarh" },
-    { "@type": "City", name: "Mohali" },
-    { "@type": "City", name: "Panchkula" },
-    { "@type": "City", name: "Zirakpur" },
-  ],
+  areaServed: { "@type": "Country", name: "India" },
   priceRange: "₹₹",
   knowsAbout: [
+    "AI search optimisation",
+    "Generative engine optimisation",
     "Search Engine Optimisation",
+    "Structured data and schema markup",
     "Google Business Profile optimisation",
     "Content marketing",
-    "Google Ads",
-    "Meta Ads",
   ],
   makesOffer: [
     {
       "@type": "Offer",
       itemOffered: {
         "@type": "Service",
-        name: "Google Profile Rescue",
+        name: "AI Visibility Audit",
         description:
-          "One-time Google Business Profile claim and optimisation with local citations.",
+          "One-time audit of how ChatGPT, Perplexity and Google's AI answers represent your business, with a prioritised fix list.",
       },
-      price: "5000",
+      price: "9000",
       priceCurrency: "INR",
     },
     {
       "@type": "Offer",
       itemOffered: {
         "@type": "Service",
-        name: "Local Starter",
+        name: "Foundation",
         description:
-          "Monthly Google Business Profile management, citations and content.",
+          "Monthly entity and structured-data groundwork, technical SEO, local visibility and citable content.",
       },
-      price: "12000",
+      price: "18000",
       priceCurrency: "INR",
     },
     {
@@ -136,9 +133,21 @@ const schema = {
       itemOffered: {
         "@type": "Service",
         name: "Growth",
-        description: "SEO, content and reporting for professional practices.",
+        description:
+          "AI search optimisation with expanded content, competitor citation tracking and landing pages.",
       },
-      price: "22000",
+      price: "35000",
+      priceCurrency: "INR",
+    },
+    {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: "Scale",
+        description:
+          "Full AI search programme with digital PR aimed at the sources AI engines cite.",
+      },
+      price: "65000",
       priceCurrency: "INR",
     },
   ],
