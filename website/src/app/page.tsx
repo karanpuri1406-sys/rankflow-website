@@ -233,12 +233,12 @@ function Hero() {
             background:CYAN, display:'block', flexShrink:0 }}/>
           <span style={{ fontFamily:MONO, fontSize:'0.68rem', letterSpacing:'0.22em',
             textTransform:'uppercase', color:CYAN }}>
-            AI Search Optimisation · Working with businesses across India
+            For Indian businesses that used to get found on Google
           </span>
         </motion.div>
 
         <div style={{ marginBottom:'26px', maxWidth:'1000px' }}>
-          {['AI is answering', 'your customer’s question.'].map((text, i) => (
+          {['Google started', 'answering for you.'].map((text, i) => (
             <div key={text} style={{ overflow:'hidden' }}>
               <motion.span
                 initial={{ y:90, opacity:0 }} animate={{ y:0, opacity:1 }}
@@ -257,19 +257,19 @@ function Hero() {
               style={{ fontFamily:SYNE, fontWeight:800,
                 fontSize:'clamp(2.1rem, 4.8vw, 4.1rem)', lineHeight:1.06,
                 color:CYAN, textShadow:'0 2px 24px rgba(0,0,0,0.75)', display:'block' }}>
-              It isn&apos;t naming you.
+              Your traffic noticed before you did.
             </motion.span>
           </div>
         </div>
 
         <motion.p initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.78 }}
           style={{ ...P, fontSize:'clamp(1rem, 1.7vw, 1.16rem)', color:'#E2E8F0',
-            maxWidth:'640px', marginBottom:'38px', textShadow:'0 1px 14px rgba(0,0,0,0.6)' }}>
-          When someone asks ChatGPT, Perplexity or Google&apos;s AI for a recommendation in
-          your category, a handful of companies get named. We do the work that decides
-          whether you are one of them —{' '}
-          <span style={{ color:WHITE, fontWeight:500 }}>and we&apos;ll show you where you
-          stand today, free.</span>
+            maxWidth:'660px', marginBottom:'38px', textShadow:'0 1px 14px rgba(0,0,0,0.6)' }}>
+          Pew found people click a result on 8% of searches that show an AI summary,
+          against 15% without. The traffic did not go to a competitor — it went to the
+          answer.{' '}
+          <span style={{ color:WHITE, fontWeight:500 }}>We&apos;ll show you, free, what AI
+          says about your category today.</span>
         </motion.p>
 
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.92 }}
@@ -336,9 +336,18 @@ function Problem() {
             and nobody can quite explain where the traffic went.
           </p>
           <p style={P}>
-            It went to the answer. Google now writes a summary at the top of the results and
-            most people never scroll past it. Meanwhile a growing share of buyers skip search
-            altogether and ask ChatGPT, Perplexity or Gemini directly:{' '}
+            It went to the answer. Pew tracked 68,879 real searches and found people clicked
+            a result on <span style={{ color:WHITE, fontWeight:500 }}>8% of pages showing an
+            AI summary, against 15% of pages without one</span> — and only 1% clicked a link
+            inside the summary itself. Ahrefs measured the same shift from the other end:
+            across 300,000 keywords, the top-ranking page lost{' '}
+            <span style={{ color:WHITE, fontWeight:500 }}>34.5% of its clicks</span> once an
+            AI Overview appeared above it. You did not lose the ranking. You lost the click
+            that used to come with it.
+          </p>
+          <p style={P}>
+            Meanwhile a growing share of buyers skip search altogether and ask ChatGPT,
+            Perplexity or Gemini directly:{' '}
             <span style={{ color:'#E2E8F0' }}>&ldquo;who are the best companies for this in
             India?&rdquo;</span> They get three or four names and a short reason for each.
             The rest of the industry does not exist in that conversation.
@@ -456,10 +465,9 @@ function Mechanism() {
             <span style={{ color:CYAN }}>not just ranked.</span>
           </h2>
           <p style={{ ...P, marginTop:'18px' }}>
-            There is no trick here and nothing proprietary to hide behind. AI engines cite
-            sources they can parse, verify and attribute. Most of this work is making a
-            business unambiguous to a machine — and it happens to make the site clearer for
-            people at the same time.
+            AI engines cite sources they can parse, verify and attribute. Most of this work
+            is making a business unambiguous to a machine — and it happens to make the site
+            clearer for people at the same time.
           </p>
         </motion.div>
 
@@ -630,16 +638,27 @@ function Offer() {
           style={{ background:BG, border:`1px solid ${CYAN}38`, borderRadius:'18px',
             padding:'44px 36px', textAlign:'center', maxWidth:'720px', margin:'0 auto',
             boxShadow:'0 0 70px rgba(34,211,238,0.07)' }}>
-          <p style={{ ...P, fontSize:'0.96rem', maxWidth:'540px', margin:'0 auto 26px' }}>
-            Most agencies will not quote you without a discovery call and a proposal.
-            This is a fixed price for a finished document, delivered in a week.
+          <p style={{ ...P, fontSize:'0.96rem', maxWidth:'560px', margin:'0 auto 26px' }}>
+            One B2B client is worth somewhere between ₹50,000 and several lakh across the
+            relationship. If AI is naming three companies in your category and you are not
+            among them, you are not losing a click — you are losing the shortlist. This
+            costs less than most firms spend on a single month of ads pointing at a page
+            nobody is being sent to.
           </p>
           <div style={{ display:'flex', alignItems:'baseline', justifyContent:'center', gap:'10px', marginBottom:'8px' }}>
             <span style={{ fontFamily:SYNE, fontWeight:800, fontSize:'3.1rem', color:CYAN, lineHeight:1 }}>₹9,000</span>
             <span style={{ fontFamily:SANS, fontSize:'0.92rem', color:MUTED }}>one time</span>
           </div>
-          <p style={{ fontFamily:SANS, fontSize:'0.86rem', color:MUTED, marginBottom:'28px' }}>
+          <p style={{ fontFamily:SANS, fontSize:'0.86rem', color:MUTED, marginBottom:'14px' }}>
             No retainer. No contract. Nothing renews.
+          </p>
+          {/* Risk reversal sits at the number, where the objection actually peaks —
+              the full terms are still spelled out in the guarantee section below. */}
+          <p style={{ fontFamily:SANS, fontSize:'0.88rem', color:'#E2E8F0',
+            maxWidth:'480px', margin:'0 auto 28px', lineHeight:1.7 }}>
+            <span style={{ color:'#4ADE80', fontWeight:600 }}>Read it, and if it doesn&apos;t
+            tell you something you didn&apos;t already know about your own visibility, we
+            refund it in full.</span>
           </p>
           <a href="#check"
             style={{ display:'inline-flex', alignItems:'center', gap:'9px',
@@ -665,8 +684,8 @@ function Offer() {
         {/* Retainers */}
         <motion.div {...rise} style={{ maxWidth:'860px', margin:'54px auto 0' }}>
           <p style={{ ...P, fontSize:'0.94rem', color:MUTED, textAlign:'center', marginBottom:'20px' }}>
-            If you want the work done rather than just diagnosed, these are the monthly
-            options. The audit fee is credited against your first month.
+            If you want the work done rather than just diagnosed — the audit fee is credited
+            against your first month.
           </p>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', gap:'16px' }}>
             {[
@@ -743,6 +762,8 @@ function Objections() {
       a:'You do. Analytics, Search Console, Google Business Profile, the content — all in your name, and yours to take with you if you leave.' },
     { q:'Is there a minimum commitment?',
       a:'No. The audit is one-off. The monthly plans are month to month and can be cancelled whenever you like.' },
+    { q:'Who is this not for?',
+      a:'Anyone needing enquiries this week — AI citation moves over months, not days. Anyone whose category genuinely has no AI search behaviour yet, which the free check will tell us. Businesses with no capacity to take on new clients. And anyone looking for guaranteed placement in an AI answer, which nobody can honestly sell.' },
   ];
 
   return (
@@ -892,6 +913,13 @@ function Close() {
             your category through ChatGPT, Perplexity and Google&apos;s AI answers, and send
             you what came back — who got named, who got cited, and whether you appeared.
             Free, no call, and yours to act on however you like.
+          </p>
+          <p style={{ ...P, marginTop:'18px' }}>
+            Two versions of the next six months. In the first, nothing changes — the traffic
+            keeps thinning, enquiries keep arriving through referral only, and by the time
+            you look into this properly your competitors have been cited for a year. In the
+            second, you spend nothing today, find out exactly where you stand this week, and
+            decide from evidence rather than worry.
           </p>
           <p style={{ ...P, marginTop:'18px', color:'#E2E8F0' }}>
             Right now a model somewhere is answering that question for a buyer.{' '}
