@@ -2,7 +2,8 @@
    single local file set in config; next/image adds nothing for it here. */
 import { CONTACT, FOUNDER, OFFER, waLink } from '@/config';
 import { bangers, comicNeue } from './_home/fonts';
-import { Burst, FounderPortrait, NotMentionedBurst, PhoneAnswer, RED, WorriedOwner } from './_home/art';
+import { Burst, FounderPortrait, RED } from './_home/art';
+import Story from './_home/Story';
 import FreeCheckForm from './_home/FreeCheckForm';
 import s from './_home/home.module.css';
 
@@ -38,51 +39,29 @@ function Hero() {
   return (
     <section id="top" aria-labelledby="hero-title" className={s.section}>
       <div className={s.heroInner}>
-        <div className={s.heroCopy}>
-          <span className={s.caption}>Chapter one: The case of the missing clicks</span>
+        <div className={s.heroTop}>
           <h1 id="hero-title" className={s.h1}>
             <span className={s.h1Line1}>AI gives your buyers three names.</span>
             <span className={s.h1Line2}>Is yours one of them?</span>
           </h1>
-          <p className={s.lead}>
-            Rankflow checks what ChatGPT, Perplexity and Google’s AI tell your customers about
-            your business, then fixes whatever keeps you out of the answer. Prices on this page.
-            Month to month.
-          </p>
-          <div className={s.ctaRow}>
-            <a href="#request" className={`${s.btn} ${s.btnRed} ${s.btnBig}`}>Run my free check! →</a>
-            <a href={waLink()} {...external} className={s.btn}>WhatsApp us</a>
+          <div className={s.heroAside}>
+            <p className={s.lead}>
+              Rankflow checks what ChatGPT, Perplexity and Google’s AI tell your customers about
+              your business, then fixes whatever keeps you out of the answer. Prices on this page.
+              Month to month.
+            </p>
+            <div className={s.ctaRow}>
+              <a href="#request" className={`${s.btn} ${s.btnRed} ${s.btnBig}`}>Run my free check! →</a>
+              <a href={waLink()} {...external} className={s.btn}>WhatsApp us</a>
+            </div>
+            <ul className={s.ticks}>
+              <li>Back in 2 working days</li>
+              <li>No call needed</li>
+              <li>Cancel any month</li>
+            </ul>
           </div>
-          <ul className={s.ticks}>
-            <li>Back in 2 working days</li>
-            <li>No call needed</li>
-            <li>Cancel any month</li>
-          </ul>
         </div>
-
-        <figure className={s.strip} aria-label="Comic strip: the case of the missing clicks">
-          <div className={s.stripGrid}>
-            <div className={`${s.panelWide} ${s.dotsBlue}`}>
-              <span className={s.panelCaption}>Chandigarh. Monday, 9 a.m.</span>
-              <WorriedOwner className={s.ownerArt} />
-              <p className={`${s.balloon} ${s.ownerBalloon}`} style={{ margin: 0 }}>
-                Rankings look fine… so where did all the enquiries go?!
-              </p>
-            </div>
-            <div className={`${s.panel} ${s.dotsPink}`}>
-              <span className={s.panelCaptionFull}>Meanwhile, a buyer asks AI…</span>
-              <p className={`${s.balloon} ${s.askBalloon}`} style={{ margin: 0 }}>“Best CA firm in Chandigarh?”</p>
-              <PhoneAnswer className={s.phoneArt} />
-            </div>
-            <div className={`${s.panel} ${s.panelRed}`}>
-              <NotMentionedBurst className={s.notMentioned} />
-              <span className={s.enter}>Enter: Rankflow.</span>
-            </div>
-          </div>
-          <figcaption className={s.stripNote}>
-            Illustrative story, names hidden. Your free check uses live answers for your own category.
-          </figcaption>
-        </figure>
+        <Story />
       </div>
     </section>
   );

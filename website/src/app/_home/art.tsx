@@ -50,51 +50,6 @@ export function NotMentionedBurst({ className }: { className?: string }) {
   );
 }
 
-/* A worried business owner at a laptop whose chart is heading down. */
-export function WorriedOwner({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 300 220" className={className}>
-      <rect x={-10} y={176} width={320} height={60} fill="#C98A4B" stroke={INK} strokeWidth={3} />
-      <path d="M30 178 Q34 132 82 128 Q130 132 134 178 Z" fill="#FFFFFF" stroke={INK} strokeWidth={3} />
-      <path d="M76 132 L88 132 L86 160 L82 166 L78 160 Z" fill={RED} stroke={INK} strokeWidth={2.5} />
-      <circle cx={82} cy={92} r={34} fill="#F2C9A0" stroke={INK} strokeWidth={3} />
-      <path d="M48 86 Q50 52 84 52 Q118 52 117 86 Q104 70 84 72 Q62 70 48 86 Z" fill="#1B1B1B" stroke={INK} strokeWidth={3} />
-      <path d="M64 84 L76 88 M100 84 L88 88" stroke={INK} strokeWidth={3} strokeLinecap="round" />
-      <circle cx={71} cy={96} r={3.6} fill={INK} />
-      <circle cx={93} cy={96} r={3.6} fill={INK} />
-      <path d="M70 112 Q76 106 82 112 Q88 118 94 112" fill="none" stroke={INK} strokeWidth={3} strokeLinecap="round" />
-      <path d="M122 70 Q127 80 122 86 Q116 80 122 70 Z" fill="#5AA9FF" stroke={INK} strokeWidth={2} />
-      <path d="M150 178 L262 178 L278 190 L136 190 Z" fill="#B9C2CF" stroke={INK} strokeWidth={3} />
-      <rect x={158} y={96} width={104} height={80} rx={4} fill="#FFFFFF" stroke={INK} strokeWidth={3} />
-      <polyline points="168,112 190,124 208,118 230,148 252,160" fill="none" stroke={RED} strokeWidth={4}
-        strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M244 150 L253 161 L240 163" fill="none" stroke={RED} strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
-      <text x={40} y={40} style={{ fontFamily: "var(--font-bangers), cursive" }} fontSize={30} fill={RED} stroke={INK}
-        strokeWidth={1.2} transform="rotate(-8 40 40)">?!</text>
-    </svg>
-  );
-}
-
-/* A phone showing an AI answer with three blacked-out names. */
-export function PhoneAnswer({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 200 200" className={className}>
-      <rect x={48} y={20} width={104} height={196} rx={18} fill={INK} />
-      <rect x={56} y={36} width={88} height={170} rx={6} fill="#FFFFFF" />
-      <g style={{ fontFamily: "var(--font-bangers), cursive" }} fill={INK}>
-        <text x={64} y={58} fontSize={13}>AI answer:</text>
-        <text x={64} y={84} fontSize={14}>1.</text>
-        <text x={64} y={108} fontSize={14}>2.</text>
-        <text x={64} y={132} fontSize={14}>3.</text>
-      </g>
-      <rect x={76} y={73} width={58} height={12} fill={INK} />
-      <rect x={76} y={97} width={44} height={12} fill={INK} />
-      <rect x={76} y={121} width={52} height={12} fill={INK} />
-      <path d="M30 200 Q40 150 62 150 L70 150 Q78 150 76 160 L66 200 Z" fill="#F2C9A0" stroke={INK} strokeWidth={3} />
-    </svg>
-  );
-}
-
 /* Stand-in founder portrait, used until a real photo is set in config. */
 export function FounderPortrait({ className }: { className?: string }) {
   return (
