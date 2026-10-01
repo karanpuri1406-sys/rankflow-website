@@ -41,6 +41,29 @@ export const CONTACT = {
   formspreeId: "mbdnwkvb",
 };
 
+export const FOUNDER = {
+  name: "Karan Puri",
+
+  /* TODO: path to a real photo in /public (e.g. "/karan.jpg"). Until it is set,
+     the page shows an illustrated portrait instead of an empty frame. */
+  photo: "",
+
+  /* TODO: full LinkedIn profile URL. The link is hidden while this is empty. */
+  linkedin: "",
+};
+
+export const OFFER = {
+  /* TODO: a Razorpay (or similar) payment link for the ₹9,000 audit. While it
+     is empty, "Buy the audit" scrolls to the request form instead. */
+  auditPaymentUrl: "",
+
+  /* TODO: say how GST applies, e.g. "Prices exclude 18% GST." Hidden while empty. */
+  gstNote: "",
+
+  /* TODO: a real client quote, with permission to name them. Hidden while empty. */
+  testimonial: { quote: "", name: "" },
+};
+
 /* Prefilled WhatsApp opener. Keep it short — long text gets truncated on iOS. */
 export const WHATSAPP_MESSAGE =
   "Hi Rankflow, I'd like a free check of how my business shows up on Google.";

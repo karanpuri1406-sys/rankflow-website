@@ -53,7 +53,7 @@ export const metadata: Metadata = {
         url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Rankflow — digital marketing for Chandigarh professional firms",
+        alt: "Rankflow — find out if AI recommends your business",
       },
     ],
   },
