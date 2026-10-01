@@ -1,18 +1,18 @@
 'use client';
 
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
-import { NotMentionedBurst } from './art';
-import { AnswerPhone, BuyerOnPhone, KaranHero, OwnerAtDesk, RingingPhone, ShockedOwner } from './story-art';
+import { Answer, Buyer, Dashboard, Doorway, SilentPhone } from './story-art';
 import s from './home.module.css';
 import st from './story.module.css';
 
 /* Time between one panel starting and the next, when several are on screen at once. */
-const STEP_MS = 1100;
+const STEP_MS = 1500;
 
-/* A motion comic: each panel plays once it is on screen, one after another,
-   so on desktop the strip reads left to right and on a phone each panel
-   plays as it scrolls in. Without JS, or with reduced motion, every panel
-   simply shows its finished frame. */
+/* "The case of the missing clicks" — a six-panel noir motion comic.
+   Each panel plays once it is on screen, one after another, so on desktop
+   the strip reads left to right and on a phone each panel plays as it
+   scrolls in. Without JS, or with reduced motion, every panel simply shows
+   its finished frame. */
 export default function Story() {
   const gridRef = useRef<HTMLDivElement>(null);
   const played = useRef(new Set<number>());
@@ -85,56 +85,67 @@ export default function Story() {
       </div>
 
       <div ref={gridRef} className={st.grid} data-animated={animated ? '' : undefined}>
-        <div {...panel(0)} className={`${st.panel} ${st.p1} ${st.bgBlue}`}>
-          <span className={st.cap}>Chandigarh. Monday, 9 a.m.</span>
-          <p className={`${s.balloon} ${st.pop} ${st.b1}`}>
-            Still ranking #3 on Google… so why has the phone gone quiet?
+        <div {...panel(0)} className={`${st.panel} ${st.p1}`}>
+          <SilentPhone className={st.art} />
+          <p className={`${st.cap} ${st.top}`} style={{ ['--d' as string]: '0.6s' }}>Chandigarh. 9:04 a.m.</p>
+          <p className={`${st.cap} ${st.bottom} ${st.right}`} style={{ ['--d' as string]: '1.4s' }}>
+            The phone hadn’t rung in eleven days.
           </p>
-          <OwnerAtDesk className={st.art} />
         </div>
 
-        <div {...panel(1)} className={`${st.panel} ${st.p2} ${st.bgPink}`}>
-          <span className={st.cap}>Meanwhile, across town…</span>
-          <p className={`${st.search} ${st.pop}`}>
-            <span className={st.searchIcon} aria-hidden="true">⌕</span>
-            <span className={st.typed}>best CA firm in Chandigarh?</span>
+        <div {...panel(1)} className={`${st.panel} ${st.p2}`}>
+          <Dashboard className={st.art} />
+          <p className={`${st.cap} ${st.top}`} style={{ ['--d' as string]: '0.5s' }}>
+            The rankings said nothing had changed.
+          </p>
+          <p className={`${st.cap} ${st.bottom} ${st.right}`} style={{ ['--d' as string]: '2.2s' }}>
+            The enquiries said otherwise.
+          </p>
+        </div>
+
+        <div {...panel(2)} className={`${st.panel} ${st.p3}`}>
+          <Buyer className={st.art} />
+          <p className={`${st.cap} ${st.top}`} style={{ ['--d' as string]: '0.5s' }}>
+            Across town, a buyer had a question.
+          </p>
+          <p className={st.query}>
+            <span className={st.typed}>Who’s the best CA firm in Chandigarh?</span>
             <span className={st.caret} aria-hidden="true" />
           </p>
-          <BuyerOnPhone className={st.art} />
-        </div>
-
-        <div {...panel(2)} className={`${st.panel} ${st.p3} ${st.bgYellow}`}>
-          <span className={st.cap}>The AI answers in seconds</span>
-          <p className={`${s.balloon} ${st.pop} ${st.b3}`}>Perfect. I’ll call the first one.</p>
-          <AnswerPhone className={st.art} />
-        </div>
-
-        <div {...panel(3)} className={`${st.panel} ${st.p4} ${st.bgBlue}`}>
-          <span className={st.cap}>Two streets away…</span>
-          <span className={`${st.sfx} ${st.sfx1}`} aria-hidden="true">Ring!</span>
-          <span className={`${st.sfx} ${st.sfx2}`} aria-hidden="true">Ring!</span>
-          <p className={`${s.balloon} ${st.pop} ${st.b4}`}>
-            Hello, <span className={st.redact}>hidden</span> &amp; Co.!
+          <p className={`${st.cap} ${st.bottom}`} style={{ ['--d' as string]: '2.6s' }}>
+            She didn’t search. She asked.
           </p>
-          <RingingPhone className={st.art} />
+        </div>
+
+        <div {...panel(3)} className={`${st.panel} ${st.p4}`}>
+          <Answer className={st.art} />
+          <p className={`${st.cap} ${st.top}`} style={{ ['--d' as string]: '0.3s' }}>Four seconds later.</p>
+          <p className={`${st.cap} ${st.bottom}`} style={{ ['--d' as string]: '2s' }}>
+            Three names. Each one cited. Polite, confident, final.
+          </p>
         </div>
 
         <div {...panel(4)} className={`${st.panel} ${st.p5}`}>
-          <div className={st.rays} aria-hidden="true" />
-          <p className={`${s.balloon} ${st.pop} ${st.b5}`}>We’re not even on the list?!</p>
-          <div className={st.face}><ShockedOwner className={st.art} /></div>
-          <div className={st.burstWrap}>
-            <NotMentionedBurst className={st.burst} />
+          <div className={st.reveal}>
+            <p className={st.revealLine} style={{ ['--d' as string]: '0.3s' }}>His firm</p>
+            <p className={st.revealLine} style={{ ['--d' as string]: '0.8s' }}>wasn’t</p>
+            <p className={`${st.revealLine} ${st.revealRed}`} style={{ ['--d' as string]: '1.3s' }}>one of them.</p>
+            <p className={st.revealSub} style={{ ['--d' as string]: '2.2s' }}>
+              Not on page two. Not in a footnote. Nowhere.
+            </p>
           </div>
         </div>
 
-        <div {...panel(5)} className={`${st.panel} ${st.p6} ${st.bgHero}`}>
-          <span className={`${st.cap} ${st.capWhite}`}>Enter: Rankflow.</span>
-          <p className={`${s.balloon} ${st.pop} ${st.b6}`}>
-            Let’s find out why. The first check is on us.
-          </p>
-          <div className={st.slideIn}><KaranHero className={st.art} /></div>
-          <a href="#request" className={`${s.btn} ${s.btnYellow} ${st.panelCta}`}>Run my free check →</a>
+        <div {...panel(5)} className={`${st.panel} ${st.p6}`}>
+          <Doorway className={st.art} />
+          <div className={st.detective}>
+            <p className={`${st.cap} ${st.inline}`} style={{ ['--d' as string]: '1.6s' }}>That’s where I come in.</p>
+            <p className={`${st.cap} ${st.inline}`} style={{ ['--d' as string]: '2.3s' }}>
+              I find out who the machine trusts, and why. Then I fix what’s keeping you off the list.
+            </p>
+            <p className={st.signature} style={{ ['--d' as string]: '2.9s' }}>— Karan Puri, Rankflow</p>
+            <a href="#request" className={`${s.btn} ${s.btnYellow} ${st.panelCta}`}>Open your case — free →</a>
+          </div>
         </div>
       </div>
 
@@ -144,4 +155,3 @@ export default function Story() {
     </figure>
   );
 }
-

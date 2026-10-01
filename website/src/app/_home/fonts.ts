@@ -1,4 +1,4 @@
-import { Bangers, Comic_Neue } from "next/font/google";
+import { Anton, Bangers, Comic_Neue, Special_Elite } from "next/font/google";
 
 /* Comic-book lettering for headings, a readable comic hand for body copy. */
 export const bangers = Bangers({
@@ -13,4 +13,19 @@ export const comicNeue = Comic_Neue({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-comic",
+});
+
+/* The noir strip: typewriter captions and a condensed headline face. */
+export const specialElite = Special_Elite({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-typewriter",
+});
+
+export const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-condensed",
 });

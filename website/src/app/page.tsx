@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- the optional founder photo is a
    single local file set in config; next/image adds nothing for it here. */
 import { CONTACT, FOUNDER, OFFER, waLink } from '@/config';
-import { bangers, comicNeue } from './_home/fonts';
+import { anton, bangers, comicNeue, specialElite } from './_home/fonts';
 import { Burst, FounderPortrait, RED } from './_home/art';
 import Story from './_home/Story';
 import FreeCheckForm from './_home/FreeCheckForm';
@@ -389,7 +389,7 @@ function Footer() {
 
 export default function Home() {
   return (
-    <div className={`${s.page} ${bangers.variable} ${comicNeue.variable}`}>
+    <div className={`${s.page} ${bangers.variable} ${comicNeue.variable} ${specialElite.variable} ${anton.variable}`}>
       <Header />
       <main>
         <Hero />
