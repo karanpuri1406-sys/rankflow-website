@@ -1,8 +1,6 @@
-/* eslint-disable @next/next/no-img-element -- the optional founder photo is a
-   single local file set in config; next/image adds nothing for it here. */
-import { CONTACT, FOUNDER, OFFER, waLink } from '@/config';
+import { CONTACT, OFFER, waLink } from '@/config';
 import { anton, bangers, comicNeue, specialElite } from './_home/fonts';
-import { Burst, FounderPortrait, RED } from './_home/art';
+import { Burst, RED } from './_home/art';
 import Story from './_home/Story';
 import FreeCheckForm from './_home/FreeCheckForm';
 import s from './_home/home.module.css';
@@ -24,7 +22,7 @@ function Header() {
           <a href="#evidence">The evidence</a>
           <a href="#method">The method</a>
           <a href="#prices">The prices</a>
-          <a href="#founder">The founder</a>
+          <a href="#cases">Case files</a>
         </nav>
         <a href="#request" className={`${s.btn} ${s.btnYellow} ${s.headerCta}`}>Free check!</a>
       </div>
@@ -112,10 +110,10 @@ type Cell = { named: false } | { named: true; rank: number };
 const NO: Cell = { named: false };
 
 const SAMPLE: { q: string; cells: [Cell, Cell, Cell] }[] = [
-  { q:'Best CA firm in Chandigarh for startups',      cells:[NO, NO, NO] },
-  { q:'CA for GST filing, small business, Mohali',    cells:[NO, { named:true, rank:3 }, NO] },
-  { q:'Who handles company registration in Tricity?', cells:[NO, NO, NO] },
-  { q:'Chartered accountant near Sector 17',          cells:[NO, NO, { named:true, rank:2 }] },
+  { q:'Best accounting firm for startups',        cells:[NO, NO, NO] },
+  { q:'Accountant for small-business tax filing', cells:[NO, { named:true, rank:3 }, NO] },
+  { q:'Who can handle my company registration?',  cells:[NO, NO, NO] },
+  { q:'Affordable accountant near me',            cells:[NO, NO, { named:true, rank:2 }] },
 ];
 
 function Report() {
@@ -132,13 +130,13 @@ function Report() {
           <p className={s.quoteBalloon}>
             “The free check gives you page one of this. The ₹9,000 audit gives you the whole thing.”
           </p>
-          <p className={s.quoteBy}>— Karan, founder</p>
+          <p className={s.quoteBy}>— Rankflow</p>
         </div>
 
         <figure className={s.report} aria-label="Sample AI visibility report, illustrative">
           <span className={s.stamp} aria-hidden="true">Illustrative!</span>
           <div className={s.reportHead}>
-            <p className={s.reportTitle}>CA firms · Chandigarh</p>
+            <p className={s.reportTitle}>Accounting firms</p>
             <p className={s.reportSub}>12 buying questions × 3 AI engines = 36 answers</p>
           </div>
           <div className={s.tableWrap}>
@@ -275,69 +273,62 @@ function Prices() {
 }
 
 /* ──────────────────────────────────────────────
-   §4 — ORIGIN STORY
+   §4 — CASE FILES
    ────────────────────────────────────────────── */
-function Founder() {
+const CASES = [
+  {
+    title: 'Case file #1',
+    client: 'Consulting firm · SEO and content',
+    rows: [
+      ['Found', 'Their contact form had been silently discarding every enquiry, and their sitemap listed 4 of roughly 30 pages.'],
+      ['Fixed', 'Both. Then published 7 in-depth guides and 6 pages of interactive tools.'],
+      ['Result', 'A real enquiry arrived within weeks.'],
+    ],
+  },
+  {
+    title: 'Case file #2',
+    client: 'Risk advisory firm · Website and content',
+    rows: [
+      ['Built', 'An interactive diagnostic: 16 questions across 4 scored dimensions.'],
+      ['Published', 'An insights blog with 8 in-depth articles.'],
+      ['Measured', 'Analytics tracking 11 specific actions, so enquiries are counted rather than guessed at.'],
+    ],
+  },
+];
+
+function CaseFiles() {
   const { quote, name } = OFFER.testimonial;
 
   return (
-    <section id="founder" aria-labelledby="founder-title" className={`${s.section} ${s.sectionPad} ${s.dotsYellow}`}>
-      <div className={s.founderRow}>
-        <div className={s.portraitCol}>
-          <div className={s.portraitFrame}>
-            {FOUNDER.photo
-              ? <img src={FOUNDER.photo} alt={`${FOUNDER.name}, founder of Rankflow`} className={s.portrait} />
-              : <FounderPortrait className={s.portrait} />}
-            <p className={s.portraitName}>{FOUNDER.name}</p>
-            <p className={s.portraitRole}>Founder · Chandigarh</p>
-          </div>
+    <section id="cases" aria-labelledby="cases-title" className={`${s.section} ${s.sectionPad} ${s.dotsYellow}`}>
+      <div className={s.wrap}>
+        <span className={s.captionWhite}>§4 · Case files</span>
+        <h2 id="cases-title" className={s.h2Red}>Real problems. Found, then fixed.</h2>
+        <div className={s.caseGrid}>
+          {CASES.map(cf => (
+            <article key={cf.title} className={s.caseCard}>
+              <h3 className={s.caseTitle}>{cf.title}</h3>
+              <p className={s.caseClient}>{cf.client}</p>
+              <dl className={s.caseRows}>
+                {cf.rows.map(([label, text]) => (
+                  <div key={label} className={s.caseRow}>
+                    <dt>{label}</dt>
+                    <dd>{text}</dd>
+                  </div>
+                ))}
+              </dl>
+            </article>
+          ))}
         </div>
-
-        <div className={s.founderCopy}>
-          <span className={s.captionWhite}>§4 · Origin story</span>
-          <h2 id="founder-title" className={s.h2Red}>Rankflow is new. The work behind it isn’t.</h2>
-          <div className={s.origin}>
-            <p className={s.originBox}>
-              <strong className={s.originTag}>3½ years:</strong>
-              marketing at BelWo, a US customer-communications firm. Content, newsletters,
-              LinkedIn, events, lead tracking.
-            </p>
-            <p className={s.originBox}>
-              <strong className={s.originTag}>Then:</strong>
-              built the SEO, directory presence and lead system for Lawgic, his own law-entrance
-              coaching business, from nothing.
-            </p>
-            <p className={s.originBox}>
-              <strong className={s.originTag}>2026:</strong>
-              founded Rankflow. Every method on this page was tried on his own business first.
-            </p>
-          </div>
-          <div className={s.caseGrid}>
-            <div className={s.caseCard}>
-              <h3 className={s.caseTitle}>Case file #1</h3>
-              <p className={s.caseText}>
-                A consulting firm’s contact form was silently discarding every enquiry. Found it,
-                fixed it. A real enquiry arrived within weeks.
-              </p>
-            </div>
-            <div className={s.caseCard}>
-              <h3 className={s.caseTitle}>Case file #2</h3>
-              <p className={s.caseText}>
-                A risk advisory firm got a 16-question diagnostic, 8 in-depth articles, and
-                analytics tracking 11 specific actions.
-              </p>
-            </div>
-          </div>
-          {quote && (
-            <blockquote className={s.testimonial}>
-              “{quote}”
-              {name && <cite className={s.testimonialBy}>— {name}</cite>}
-            </blockquote>
-          )}
-          <div className={s.ctaRow}>
-            <a href={waLink()} {...external} className={`${s.btn} ${s.btnRed}`}>Message Karan</a>
-            {FOUNDER.linkedin && <a href={FOUNDER.linkedin} {...external} className={s.btn}>LinkedIn</a>}
-          </div>
+        {quote && (
+          <blockquote className={s.testimonial}>
+            “{quote}”
+            {name && <cite className={s.testimonialBy}>— {name}</cite>}
+          </blockquote>
+        )}
+        <div className={s.ctaRow}>
+          <a href="#request" className={`${s.btn} ${s.btnRed}`}>Open your case — free</a>
+          <a href={waLink()} {...external} className={s.btn}>WhatsApp us</a>
         </div>
       </div>
     </section>
@@ -376,7 +367,7 @@ function Footer() {
     <footer className={s.footer}>
       <div className={s.footerInner}>
         <span className={s.theEnd}>The end.</span>
-        <p>Rankflow · AI search and SEO for businesses across India, from Chandigarh</p>
+        <p>Rankflow · AI search optimisation and SEO</p>
         <p>
           <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
           {CONTACT.phoneE164 && <> · <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneDisplay}</a></>}
@@ -397,7 +388,7 @@ export default function Home() {
         <Report />
         <Method />
         <Prices />
-        <Founder />
+        <CaseFiles />
         <Request />
       </main>
       <Footer />

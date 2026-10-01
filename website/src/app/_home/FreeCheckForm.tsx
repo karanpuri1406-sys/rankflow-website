@@ -7,10 +7,10 @@ import s from './home.module.css';
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 const FIELDS = [
-  { key: 'name',     label: 'Name',              type: 'text', ph: 'Your name',          half: true,  auto: 'name' },
-  { key: 'phone',    label: 'WhatsApp number',   type: 'tel',  ph: '98765 43210',        half: true,  auto: 'tel' },
-  { key: 'website',  label: 'Website',           type: 'text', ph: 'yourfirm.in',        half: false, auto: 'url' },
-  { key: 'business', label: 'Business and city', type: 'text', ph: 'CA firm, Chandigarh', half: false, auto: 'organization' },
+  { key: 'name',     label: 'Name',                    type: 'text', ph: 'Your name',                    half: true,  auto: 'name' },
+  { key: 'phone',    label: 'WhatsApp number',         type: 'tel',  ph: 'With country code',            half: true,  auto: 'tel' },
+  { key: 'website',  label: 'Website',                 type: 'text', ph: 'yourfirm.com',                 half: false, auto: 'url' },
+  { key: 'business', label: 'What your business does', type: 'text', ph: 'Accounting firm for startups', half: false, auto: 'organization' },
 ] as const;
 
 type FieldKey = (typeof FIELDS)[number]['key'];

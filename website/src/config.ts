@@ -14,10 +14,6 @@ export const SITE = {
      change this to it and redeploy. Nothing else needs touching. */
   url: "https://rankflow-website.vercel.app",
 
-  /* TODO: confirm your Chandigarh postal code. Feeds LocalBusiness schema,
-     which is what Google reads for local/map-pack results. */
-  postalCode: "160017",
-
   /* GA4 measurement ID. Set NEXT_PUBLIC_GA_ID in your environment
      (Vercel/Netlify dashboard or .env.local) — analytics stay off until you do. */
   gaId: process.env.NEXT_PUBLIC_GA_ID ?? "",
@@ -39,17 +35,6 @@ export const CONTACT = {
      If this is ever emptied the form is replaced by a WhatsApp fallback
      rather than silently failing. */
   formspreeId: "mbdnwkvb",
-};
-
-export const FOUNDER = {
-  name: "Karan Puri",
-
-  /* TODO: path to a real photo in /public (e.g. "/karan.jpg"). Until it is set,
-     the page shows an illustrated portrait instead of an empty frame. */
-  photo: "",
-
-  /* TODO: full LinkedIn profile URL. The link is hidden while this is empty. */
-  linkedin: "",
 };
 
 export const OFFER = {

@@ -87,7 +87,7 @@ export default function Story() {
       <div ref={gridRef} className={st.grid} data-animated={animated ? '' : undefined}>
         <div {...panel(0)} className={`${st.panel} ${st.p1}`}>
           <SilentPhone className={st.art} />
-          <p className={`${st.cap} ${st.top}`} style={{ ['--d' as string]: '0.6s' }}>Chandigarh. 9:04 a.m.</p>
+          <p className={`${st.cap} ${st.top}`} style={{ ['--d' as string]: '0.6s' }}>Monday. 9:04 a.m.</p>
           <p className={`${st.cap} ${st.bottom} ${st.right}`} style={{ ['--d' as string]: '1.4s' }}>
             The phone hadn’t rung in eleven days.
           </p>
@@ -109,7 +109,7 @@ export default function Story() {
             Across town, a buyer had a question.
           </p>
           <p className={st.query}>
-            <span className={st.typed}>Who’s the best CA firm in Chandigarh?</span>
+            <span className={st.typed}>Who’s the best accounting firm near me?</span>
             <span className={st.caret} aria-hidden="true" />
           </p>
           <p className={`${st.cap} ${st.bottom}`} style={{ ['--d' as string]: '2.6s' }}>
@@ -139,11 +139,11 @@ export default function Story() {
         <div {...panel(5)} className={`${st.panel} ${st.p6}`}>
           <Doorway className={st.art} />
           <div className={st.detective}>
-            <p className={`${st.cap} ${st.inline}`} style={{ ['--d' as string]: '1.6s' }}>That’s where I come in.</p>
+            <p className={`${st.cap} ${st.inline}`} style={{ ['--d' as string]: '1.6s' }}>That’s where we come in.</p>
             <p className={`${st.cap} ${st.inline}`} style={{ ['--d' as string]: '2.3s' }}>
-              I find out who the machine trusts, and why. Then I fix what’s keeping you off the list.
+              We find out who the machine trusts, and why. Then we fix what’s keeping you off the list.
             </p>
-            <p className={st.signature} style={{ ['--d' as string]: '2.9s' }}>— Karan Puri, Rankflow</p>
+            <p className={st.signature} style={{ ['--d' as string]: '2.9s' }}>— Rankflow</p>
             <a href="#request" className={`${s.btn} ${s.btnYellow} ${st.panelCta}`}>Open your case — free →</a>
           </div>
         </div>

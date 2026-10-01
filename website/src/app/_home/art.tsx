@@ -49,22 +49,3 @@ export function NotMentionedBurst({ className }: { className?: string }) {
     </svg>
   );
 }
-
-/* Stand-in founder portrait, used until a real photo is set in config. */
-export function FounderPortrait({ className }: { className?: string }) {
-  return (
-    <svg role="img" aria-label="Illustrated portrait of the founder" viewBox="0 0 240 300" className={className}>
-      <path d="M30 300 Q36 214 120 206 Q204 214 210 300 Z" fill="#FFFFFF" stroke={INK} strokeWidth={4} />
-      <path d="M100 210 L120 246 L140 210" fill="none" stroke={INK} strokeWidth={4} strokeLinejoin="round" />
-      <rect x={104} y={180} width={32} height={34} fill="#F2C9A0" stroke={INK} strokeWidth={4} />
-      <ellipse cx={120} cy={126} rx={62} ry={70} fill="#F2C9A0" stroke={INK} strokeWidth={4} />
-      <path d="M58 118 Q56 52 120 50 Q186 52 182 118 Q170 86 136 84 Q104 96 74 92 Q62 100 58 118 Z"
-        fill="#1B1B1B" stroke={INK} strokeWidth={4} strokeLinejoin="round" />
-      <path d="M88 116 L108 112 M132 112 L152 116" stroke={INK} strokeWidth={4} strokeLinecap="round" />
-      <circle cx={98} cy={130} r={5} fill={INK} />
-      <circle cx={142} cy={130} r={5} fill={INK} />
-      <path d="M120 136 Q114 152 122 156" fill="none" stroke={INK} strokeWidth={3} strokeLinecap="round" />
-      <path d="M96 170 Q120 188 146 168" fill="none" stroke={INK} strokeWidth={4} strokeLinecap="round" />
-    </svg>
-  );
-}

@@ -14,10 +14,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const TITLE =
-  "Rankflow — AI Search Optimisation & SEO for Businesses Across India";
+const TITLE = "Rankflow — AI Search Optimisation & SEO";
 const DESCRIPTION =
-  "Get found and cited by ChatGPT, Perplexity and Google's AI answers. AI search optimisation, SEO and local visibility for businesses across India — with every price published up front.";
+  "Get found and cited by ChatGPT, Perplexity and Google's AI answers. AI search optimisation and SEO, with every price published up front.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -27,14 +26,12 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   keywords: [
-    "ai seo agency india",
+    "ai seo agency",
     "ai search optimisation",
     "generative engine optimisation",
     "chatgpt seo",
     "perplexity seo",
     "google ai overview optimisation",
-    "seo agency india",
-    "seo agency chandigarh",
   ],
   authors: [{ name: "Rankflow" }],
   creator: "Rankflow",
@@ -75,28 +72,18 @@ export const metadata: Metadata = {
   },
 };
 
-/* LocalBusiness schema — this is what feeds the Google map pack.
-   Update the address block once the registered business address is final. */
+/* Organization schema: who Rankflow is and what it offers, without tying the
+   business to a place. */
 const schema = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": "Organization",
   "@id": `${SITE.url}/#organization`,
   name: "Rankflow",
   url: SITE.url,
   email: CONTACT.email,
   ...(CONTACT.phoneE164 ? { telephone: CONTACT.phoneE164 } : {}),
   description: DESCRIPTION,
-  founder: { "@type": "Person", name: "Karan Puri" },
   foundingDate: "2026",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Chandigarh",
-    addressRegion: "Chandigarh",
-    postalCode: SITE.postalCode,
-    addressCountry: "IN",
-  },
-  areaServed: { "@type": "Country", name: "India" },
-  priceRange: "₹₹",
   knowsAbout: [
     "AI search optimisation",
     "Generative engine optimisation",
