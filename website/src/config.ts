@@ -14,10 +14,6 @@ export const SITE = {
      change this to it and redeploy. Nothing else needs touching. */
   url: "https://rankflow-website.vercel.app",
 
-  /* TODO: confirm your Chandigarh postal code. Feeds LocalBusiness schema,
-     which is what Google reads for local/map-pack results. */
-  postalCode: "160017",
-
   /* GA4 measurement ID. Set NEXT_PUBLIC_GA_ID in your environment
      (Vercel/Netlify dashboard or .env.local) — analytics stay off until you do. */
   gaId: process.env.NEXT_PUBLIC_GA_ID ?? "",
@@ -39,6 +35,18 @@ export const CONTACT = {
      If this is ever emptied the form is replaced by a WhatsApp fallback
      rather than silently failing. */
   formspreeId: "mbdnwkvb",
+};
+
+export const OFFER = {
+  /* TODO: a Razorpay (or similar) payment link for the ₹9,000 audit. While it
+     is empty, "Buy the audit" scrolls to the request form instead. */
+  auditPaymentUrl: "",
+
+  /* TODO: say how GST applies, e.g. "Prices exclude 18% GST." Hidden while empty. */
+  gstNote: "",
+
+  /* TODO: a real client quote, with permission to name them. Hidden while empty. */
+  testimonial: { quote: "", name: "" },
 };
 
 /* Prefilled WhatsApp opener. Keep it short — long text gets truncated on iOS. */

@@ -1,0 +1,227 @@
+/* ──────────────────────────────────────────────
+   "The case of the missing clicks" — noir motion comic
+   Three inks (night, cream, Rankflow red), typewriter captions,
+   cinematic motion: panels wipe in, the camera eases in, nothing
+   bounces. Everything that moves is gated on [data-played], which
+   Story.tsx sets per panel as it comes into view; without it each
+   panel shows its finished frame.
+   ────────────────────────────────────────────── */
+
+.story {
+  --night: #0B0B0C;
+  --cream: #F3EBD8;
+  --type: var(--font-typewriter), 'Courier New', monospace;
+  --cond: var(--font-condensed), Impact, sans-serif;
+  margin: clamp(40px, 5vw, 56px) 0 0;
+}
+.storyHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 18px;
+}
+.replay {
+  min-height: 44px;
+  padding: 4px 16px 0;
+  background: #FFFFFF;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-family: var(--display);
+  font-size: 19px;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  cursor: pointer;
+}
+.replay:hover { background: var(--yellow); }
+.note { margin-top: 18px; font-size: 13.5px; font-weight: 700; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 10px;
+  background: var(--night);
+  border: 5px solid var(--ink);
+  padding: 10px;
+  box-shadow: 10px 10px 0 var(--red);
+}
+
+.panel { position: relative; height: 380px; overflow: hidden; background: var(--night); }
+.p1 { grid-column: span 4; }
+.p2 { grid-column: span 4; }
+.p3 { grid-column: span 4; }
+.p4 { grid-column: span 3; }
+.p5 { grid-column: span 4; }
+.p6 { grid-column: span 5; }
+
+.art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* Caption boxes: cream card, typewriter text */
+.cap {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  max-width: min(78%, 300px);
+  background: var(--cream);
+  color: var(--night);
+  border: 2px solid var(--night);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
+  padding: 8px 11px 7px;
+  font-family: var(--type);
+  font-size: 14.5px;
+  line-height: 1.38;
+}
+.top { top: 12px; left: 12px; }
+.bottom { bottom: 12px; left: 12px; }
+.right { left: auto; right: 12px; }
+.inline { position: static; max-width: none; }
+
+/* Panel 3: the question, typed */
+.query {
+  position: absolute;
+  z-index: 2;
+  top: 76px;
+  right: 12px;
+  margin: 0;
+  max-width: calc(100% - 24px);
+  display: flex;
+  align-items: center;
+  background: #1C1C1C;
+  color: var(--cream);
+  border: 1.5px solid rgba(243, 235, 216, 0.45);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: var(--type);
+  font-size: 13.5px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.typed { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.caret { display: inline-block; width: 2px; height: 1.1em; background: var(--cream); margin-left: 2px; }
+
+/* Panel 5: the reveal, set in type */
+.reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 26px 28px;
+  background-color: var(--night);
+  background-image: radial-gradient(rgba(243, 235, 216, 0.07) 30%, transparent 32%);
+  background-size: 8px 8px;
+}
+.revealLine {
+  margin: 0;
+  font-family: var(--cond);
+  font-size: clamp(38px, 3.9vw, 56px);
+  line-height: 0.98;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.revealRed { color: var(--red); }
+.revealSub {
+  margin: 18px 0 0;
+  padding-top: 12px;
+  border-top: 2px solid var(--red);
+  max-width: 24em;
+  font-family: var(--type);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--cream);
+}
+
+/* Panel 6: the detective's lines sit left of the doorway */
+.detective {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  bottom: 14px;
+  left: 12px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.signature { margin: 0; font-family: var(--type); font-size: 13.5px; color: var(--cream); }
+.panelCta {
+  margin-top: auto;
+  min-height: 46px;
+  padding: 3px 14px 0;
+  font-family: var(--cond);
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  text-align: left;
+}
+
+/* ── Motion ─────────────────────────────────── */
+/* Slow, film-like easing; nothing overshoots. */
+
+.grid[data-animated] .panel:not([data-played]) { opacity: 0; }
+
+.panel[data-played] { animation: wipe 1s cubic-bezier(0.65, 0, 0.35, 1) both; }
+.panel[data-played] .art { animation: push 8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.panel[data-played] .cap,
+.panel[data-played] .signature { animation: settle 0.7s ease-out var(--d, 0.6s) both; }
+
+/* 1 — steam drifts, the lock screen wakes as if someone checked it */
+.panel[data-played] .steam { animation: steam 3.2s ease-in-out var(--sd, 0.4s) infinite both; }
+.panel[data-played] .lockScreen { animation: wake 2.4s ease-out 0.9s both; }
+
+/* 2 — the two lines draw: one flat, one falling */
+.panel[data-played] .drawFlat { stroke-dasharray: 210; animation: draw 1.2s ease-out 0.8s both; }
+.panel[data-played] .drawFall { stroke-dasharray: 230; animation: draw 1.8s ease-in-out 1.3s both; }
+
+/* 3 — the screen lights her up; the question types itself */
+.panel[data-played] .glow { animation: fadeIn 1.4s ease-out 0.4s both; }
+.panel[data-played] .glowScreen { animation: flicker 1.2s ease-out 0.5s both; }
+.panel[data-played] .query { animation: settle 0.6s ease-out 1s both; }
+.panel[data-played] .typed { animation: type 1.6s steps(39, end) 1.3s both; }
+.panel[data-played] .caret { animation: caret 0.9s step-end infinite; }
+
+/* 4 — the answer arrives row by row */
+.panel[data-played] .row { animation: settle 0.6s ease-out var(--d, 0.7s) both; }
+
+/* 5 — the reveal, line by line */
+.panel[data-played] .revealLine,
+.panel[data-played] .revealSub { animation: unmask 0.8s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0.3s) both; }
+
+/* 6 — the door opens; a figure is standing in it */
+.panel[data-played] .door { transform-box: fill-box; transform-origin: 0 50%; animation: open 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.3s both; }
+.panel[data-played] .spill { animation: fadeIn 1s ease-out 0.9s both; }
+.panel[data-played] .figure { animation: fadeIn 1s ease-out 1.1s both; }
+.panel[data-played] .panelCta { animation: settle 0.7s ease-out 3.4s both; }
+
+@keyframes wipe    { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes push    { from { transform: scale(1.09); } to { transform: scale(1); } }
+@keyframes settle  { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn  { from { opacity: 0; } }
+@keyframes steam   { 0% { opacity: 0; transform: translateY(6px); } 40% { opacity: 0.7; } 100% { opacity: 0; transform: translateY(-14px); } }
+@keyframes wake    { 0% { fill: #1C1C1C; } 18% { fill: #4A4640; } 100% { fill: #1C1C1C; } }
+@keyframes draw    { from { stroke-dashoffset: 230; } to { stroke-dashoffset: 0; } }
+@keyframes flicker { 0% { opacity: 0.2; } 30% { opacity: 1; } 40% { opacity: 0.7; } 100% { opacity: 1; } }
+@keyframes type    { from { max-width: 0; } to { max-width: 26em; } }
+@keyframes caret   { 50% { opacity: 0; } }
+@keyframes unmask  { from { clip-path: inset(0 100% 0 0); opacity: 0.3; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+@keyframes open    { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ── Smaller screens ────────────────────────── */
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .p1, .p2, .p3, .p4, .p5, .p6 { grid-column: span 1; }
+}
+@media (max-width: 640px) {
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 8px; box-shadow: 7px 7px 0 var(--red); }
+  .panel { height: 340px; }
+  .p6 { height: 420px; }
+  .detective { width: 56%; }
+  .cap { font-size: 13.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel[data-played], .panel[data-played] * { animation: none !important; }
+}
